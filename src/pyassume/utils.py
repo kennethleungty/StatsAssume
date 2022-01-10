@@ -18,7 +18,6 @@ dt_font_family = 'Arial'
 padding_size = '10px'
 center_separator = '2px solid #FFD700'
 
-
 def display_base64_plot(fig):
     """Convert plot (matplotlib or seaborn) into base64 image (png) object
 
@@ -40,11 +39,19 @@ def display_base64_plot(fig):
 
 def display_intro_header(assumption_name: str,
                          assumption_intro: str):
-    
-    return dbc.Card([
-                    dbc.CardHeader(html.H5(assumption_name)),
+
+    return html.Div([html.H1(assumption_name)],
+                    style={
+                        'padding': '10px',
+                        'text-align': 'center',
+                        'background': '#1abc9c',
+                        'color': 'white',
+                        'font-size': '10px'
+                        })
+    # return dbc.Card([
+    #                 dbc.CardHeader(html.H5(assumption_name)),
                     # dbc.CardBody(html.Small(assumption_intro))
-                    ])
+                    # ])
 
 
 def display_regression_summary(task_name: str, 
@@ -197,10 +204,8 @@ def display_logs(task_name: str):
     ])
 
 
-
 def _convert_summary_to_dashtable(html_table: str,
                                   table_type: str):
-
     col_names = ['Parameter', 'Value']
 
     def create_adjacent_tables(df_left: pd.DataFrame,
@@ -267,12 +272,7 @@ def _convert_summary_to_dashtable(html_table: str,
                                 style_cell_conditional=[{
                                     'if': {'column_id': 'variable'},
                                     'fontWeight': 'bold',
-                                    }] 
-                                    # + 
-                                    # [{
-                                    # 'if': {'row_index': 'odd'},
-                                    # 'textAlign': 'right'
-                                    # }]               
+                                    }]              
                                         )
                             ) 
 
