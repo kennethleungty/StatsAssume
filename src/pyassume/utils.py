@@ -1,7 +1,7 @@
 # =================================
 # Module: Utils Helper Functions
 # Author: Kenneth Leung
-# Last Modified: 09 Jan 2022
+# Last Modified: 11 Jan 2022
 # =================================
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -37,35 +37,39 @@ def display_base64_plot(fig):
     return f'data:image/png;base64, {data}'
 
 
-def display_intro_header(assumption_name: str,
-                         assumption_intro: str):
+def display_tab_header(assumption_name: str,
+                       assumption_intro: str):
 
-    return html.Div([html.H1(assumption_name)],
-                    style={
-                        'padding': '10px',
-                        'text-align': 'center',
-                        'background': '#1abc9c',
-                        'color': 'white',
-                        'font-size': '10px'
-                        })
+    return html.Div([html.H5([assumption_name],
+                        style={
+                        'padding':'0px 0px 13px 0px',
+                        'text-align':'center',
+                        # 'background':'#FFFEFB',
+                        'color':'black',
+                        'font-size':'26px',
+                        'margin':'0px',
+                        # 'border-top':'2px solid #FFD700',
+                        'border-bottom':'2px solid #FFD700'
+                        })],
+                    )
     # return dbc.Card([
     #                 dbc.CardHeader(html.H5(assumption_name)),
                     # dbc.CardBody(html.Small(assumption_intro))
                     # ])
 
 
-def display_regression_summary(task_name: str, 
+def display_regression_summary(results_name: str, 
                                html_table_1: str,
                                html_table_2: str = Optional,
                                html_table_3: str = Optional):
 
-    if task_name == 'Linear Regression':
+    if results_name == f'Linear Regression Results':
         dbc_card_table_1 = _convert_summary_to_dashtable(html_table_1, table_type='ols_table_1')
         dbc_card_table_2 = _convert_summary_to_dashtable(html_table_2, table_type='ols_table_2')
         dbc_card_table_3 = _convert_summary_to_dashtable(html_table_3, table_type='ols_table_3')
 
         return dbc.Card([
-                        dbc.CardHeader(html.H5(task_name)),
+                        dbc.CardHeader(html.H5(results_name)),
                         dbc.CardBody(children=[
                                     dbc_card_table_1,
                                     html.Hr(),
@@ -334,19 +338,6 @@ def _convert_stat_table_to_dashtable(stat_table: pd.DataFrame):
 #                         hspace=0, wspace=0.03)
 #     plt.margins(0,0)
 #     plt.show()
-
-
-# def main_section_header(x: str):
-#     """Print title main header
-
-#     Args:
-#         x (str): Header title
-#     """
-#     print('\n')
-#     print('*' * len(x))
-#     print(x)
-#     print('*' * len(x))
-#     print('\n')
     
 
 # def _check_target_type(df, target):

@@ -38,10 +38,10 @@ def generate_tab_summary(summary,
 
     tab_summary = html.Div(style = {'text-align':'center'},
                         children=[
-                        display_intro_header(assumption_name='Summary',
-                                             assumption_intro='Brief description of regression results'),
+                        display_tab_header(assumption_name='Summary',
+                                           assumption_intro='Brief description of regression results'),
                         html.Br(),
-                        display_regression_summary('Linear Regression',
+                        display_regression_summary('Linear Regression Results',
                                                     ols_table_1,
                                                     ols_table_2,
                                                     ols_table_3),
@@ -75,8 +75,8 @@ def generate_tab_homosced(residuals: pd.Series,
 
     tab_homosced = html.Div(style = {'text-align':'center'},
                     children=[
-                    display_intro_header(assumption_name='Assumption Check - Homoscedasticity',
-                                        assumption_intro='Brief description of specific assumption check'),
+                    display_tab_header(assumption_name='Assumption Check - Homoscedasticity',
+                                       assumption_intro='Brief description of specific assumption check'),
                     html.Br(),
                     display_visual_plot(plot_name='Residual Plot', 
                                         img_plot=output_plot_residual,
@@ -115,8 +115,8 @@ def generate_tab_independence(residuals: pd.Series):
 
         tab_independence = html.Div(style = {'text-align':'center'},
                                 children=[
-                                display_intro_header(assumption_name='Assumption Check - Independence/Autocorrelation',
-                                                    assumption_intro='Brief description of specific assumption check'),
+                                display_tab_header(assumption_name='Assumption Check - Independence',
+                                                   assumption_intro='Brief description of specific assumption check'),
                                 html.Br(),
                                 display_visual_plot(plot_name='Autocorrelation Function (ACF) Plot', 
                                                    img_plot=output_plot_acf,
@@ -161,8 +161,8 @@ def generate_tab_linearity(df: pd.DataFrame,
 
         tab_linearity = html.Div(style = {'text-align':'center'},
                 children=[
-                display_intro_header(assumption_name='Assumption Check - Linearity',
-                                     assumption_intro='Brief description of specific assumption check'),
+                display_tab_header(assumption_name='Assumption Check - Linearity',
+                                   assumption_intro='Brief description of specific assumption check'),
                 html.Br(),
                 display_visual_plot(plot_name='Residual Plot', 
                                     img_plot=output_plot_residual,
@@ -198,8 +198,8 @@ def generate_tab_multicollinearity(X: pd.DataFrame,
         
         tab_multicollinearity = html.Div(style = {'text-align':'center'},
                 children=[
-                display_intro_header(assumption_name='Assumption Check - Multicollinearity',
-                                     assumption_intro='Brief description of specific assumption check'),
+                display_tab_header(assumption_name='Assumption Check - Multicollinearity',
+                                   assumption_intro='Brief description of specific assumption check'),
                 html.Br(),
                 display_visual_plot(plot_name='Correlation Matrix', 
                                     img_plot=output_plot_corr_heatmap,
@@ -238,8 +238,8 @@ def generate_tab_normality(residuals: pd.Series):
 
         tab_normality = html.Div(style = {'text-align':'center'},
                 children=[
-                display_intro_header(assumption_name='Assumption Check - Normality',
-                                     assumption_intro='Brief description of specific assumption check'),
+                display_tab_header(assumption_name='Assumption Check - Normality',
+                                   assumption_intro='Brief description of specific assumption check'),
                 html.Br(),
                 display_visual_plot(plot_name='Quantile-Quantile (QQ) Plot', 
                                     img_plot=output_plot_qq,

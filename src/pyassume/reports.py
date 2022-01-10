@@ -119,7 +119,6 @@ class Checker:
             # Check whether there are additional categorical features not specified by user:
             categorical_features_diff = list(set(categorical_features_auto) - set(self.categorical_features))
             if len(categorical_features_diff) > 0:
-                # logger.info(f'[+] Additional categorical features automatically discovered: {categorical_features_diff}')
                 raise ValueError(f'These categorical features have not been encoded: {categorical_features_diff}')
             else:
                 logger.info(f'[+] Categorical features specified by user: {categorical_features_auto}')
