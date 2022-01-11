@@ -8,4 +8,5 @@ scipy==1.7.3
 seaborn==0.11.2
 statsmodels==0.13.1
 pytest==6.2.5
-lmxl==4.7.1
+lxml==4.7.1
+jupyter-dash==0.4.0
