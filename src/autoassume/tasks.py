@@ -5,10 +5,11 @@
 # ==========================
 import pandas as pd
 import statsmodels.api as sm
-from statsmodels.genmod.generalized_linear_model import GLM
-from statsmodels.genmod import families
+# from statsmodels.genmod.generalized_linear_model import GLM
+# from statsmodels.genmod import families
 
-def task_linear_regression(y: pd.Series, 
+
+def task_linear_regression(y: pd.Series,
                            X: pd.DataFrame):
     """Run linear regression task (ordinary least squares)
 
@@ -17,7 +18,8 @@ def task_linear_regression(y: pd.Series,
         X (pd.DataFrame): DataFrame of predictor variables
 
     Returns:
-        Returns the regression model residuals, fitted values, and the OLS regression summary table
+        Returns the regression model residuals, fitted values, and
+        the OLS regression summary table
     """
 
     model = sm.OLS(y, X)
@@ -30,7 +32,7 @@ def task_linear_regression(y: pd.Series,
 
 
 # # Binary Logistic Regression Assumption Checks - COMING SOON
-# def task_binary_logistic_regression(y: pd.Series, 
+# def task_binary_logistic_regression(y: pd.Series,
 #                                     X: pd.DataFrame,
 #                                     task_summary: bool = True):
 #     model = GLM(y, X, family=families.Binomial())
@@ -41,7 +43,7 @@ def task_linear_regression(y: pd.Series,
 
 
 # # Multinomial Logistic Regression Assumption Checks - COMING SOON
-# def task_multinomial_logistic_regression(y: pd.Series, 
+# def task_multinomial_logistic_regression(y: pd.Series,
 #                                          X: pd.DataFrame):
 #     # model = GLM(y, X, family=families.Binomial()) # To amend to MN logit
 #     print('Multinomial Logistic Regression Assumption Checks - COMING SOON')

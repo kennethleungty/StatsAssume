@@ -5,7 +5,6 @@
 # ===============================
 from dataclasses import dataclass
 from typing import List, Optional
-from loguru import logger
 
 import numpy as np
 import pandas as pd
@@ -15,10 +14,7 @@ from sklearn.preprocessing import OrdinalEncoder
 from jupyter_dash import JupyterDash
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
-
 import warnings
-warnings.filterwarnings("ignore")
-
 from .layouts.linear_regression.layout import layout_linear_regression
 from .layouts.linear_regression.tabs import *
 from .enums import TaskType
@@ -27,6 +23,9 @@ from .stats import *
 from .tasks import *
 from .logger import logger
 logger.add('logs/autoassume_check.log', mode="w")
+
+warnings.filterwarnings("ignore")
+
 
 @dataclass
 class Checker:
@@ -39,22 +38,19 @@ class Checker:
     categorical_encoder: Optional[str] = None
     mode: str = 'inline'
 
-    """Main class that initializes regression modelling, runs assumption checks, and
-    returns an output report of the checks in the form of a Dash dashboard
+    """Core object of AutoAssume. It initializes regression modelling, runs relevant assumption checks,
+    and returns an output report in the form of a Dash dashboard
     """
-    # # Create logs for execution of assumption checks
-    # with open('modellogs.log', 'w+'): 
-    #     pass # Clear existing logs
-    
     def __post_init__(self):
         pass
         # if os.path.exists(self.output):
-        #     raise Exception("Output directory already exists. Please specify another output folder name.")
+        #     raise Exception("Output directory already exists. Please specify another folder name.")
         # os.makedirs(self.output, exist_ok=True)
         # logger.info(f"Output directory: {self.output}")
 
     def _determine_task_type(self):
-        """Sets the type of regression task to be run. If none is specified, function will automatically 
+        """Sets type of regression task to run.
+        If none specified, function will automatically
         infer type of regression based on target variable
 
         Raises:
@@ -75,29 +71,28 @@ class Checker:
             else:
                 raise ValueError('Unable to infer type of regression task')
 
-            logger.info(f"[+] Executing task type as specified by user: {task_type.name}")
-            
+            logger.info(f"[+]>> Executing task type as specified by user: {task_type.name}")
+
         else:
             # Infer target type
-            target_type = type_of_target(self.df[self.target].values) # Using sklearn.utils.multiclass.type_of_target 
+            target_type = type_of_target(self.df[self.target].values)  # Using sklearn.utils.multiclass.type_of_target
             if target_type == "continuous":
                 task_type = TaskType.linear_regression
             elif target_type == "binary":
                 task_type = TaskType.binary_logistic_regression
             elif target_type == "multiclass":
                 task_type = TaskType.multinomial_logistic_regression
-            elif (target_type == "continuous-multioutput") or (target_type=="multilabel-indicator"):
+            elif (target_type == "continuous-multioutput") or (target_type == "multilabel-indicator"):
                 raise Exception('Target needs to be a 1D-array or column vector')
             else:
                 raise Exception("Target type not supported. Please provide a Target variable with type compatible with linear or logistic regression")
 
             logger.info(f"[+] Executing task type (detected automatically): {task_type.name}")
-        
+
         return task_type
 
-
     def _process_categorical_features(self):
-        """ Transform categorical features (via one-hot or ordinal encoding) 
+        """ Transform categorical features (via one-hot or ordinal encoding)
         so that input data can be parsed into statsmodel for modelling
 
         Raises:
@@ -109,7 +104,7 @@ class Checker:
         # Automatically detect categorical features
         categorical_features_auto = []
         features = [col for col in list(self.df.columns) if col != self.target]
-        for col in features:        
+        for col in features:
             if self.df[col].dtype == "object":
                 categorical_features_auto.append(col)
 
@@ -130,22 +125,22 @@ class Checker:
 
         if len(categorical_features) > 0:
             if self.categorical_encoder == 'ohe':
-                logger.info(f'[+] Proceeding with one-hot encoding of categorical features')
+                logger.info('[+] Proceeding with one-hot encoding of categorical features')
                 df_encode = self.df.copy()
                 for feature in categorical_features:
-                    dummies = pd.get_dummies(df_encode[feature], 
-                                             prefix=feature, 
+                    dummies = pd.get_dummies(df_encode[feature],
+                                             prefix=feature,
                                              drop_first=True)
                     df_encode = pd.concat([df_encode, dummies], axis=1)
                     df_encode.drop([feature], axis=1, inplace=True)
-                    
+
                 logger.info(f'[+] Completed one-hot encoding of categorical features: {categorical_features}')
                 return df_encode
 
-            elif self.categorical_encoder == 'ord': # Ordinal encoding
+            elif self.categorical_encoder == 'ord':  # Ordinal encoding
                 df_encode = self.df.copy()
-                logger.info(f'[+] Proceeding with ordinal encoding of categorical features')
-                ord_encoder = OrdinalEncoder(handle_unknown="use_encoded_value", 
+                logger.info('[+] Proceeding with ordinal encoding of categorical features')
+                ord_encoder = OrdinalEncoder(handle_unknown="use_encoded_value",
                                              unknown_value=np.nan)
                 df_encode[categorical_features] = ord_encoder.fit_transform(df_encode[categorical_features].values)
                 logger.info(f'[+] Completed ordinal encoding of categorical features: {categorical_features}')
@@ -153,12 +148,10 @@ class Checker:
                 return df_encode
             else:
                 raise ValueError(f'Please manually encode these categorical features (or use `categorical_encoder`) before continuing: {categorical_features} ')
-        else: 
+        else:
             logger.info('[+] No non-encoded categorical features identified. Proceeding with regression')
-            
             return self.df
 
-    
     def report(self):
         """Run regression modeling and assumption checks, and display output as JupyterDash dashboard report
 
@@ -182,23 +175,28 @@ class Checker:
             predictors = self.predictors
 
         X, y = df[predictors], df[self.target]
-        X_constant = sm.add_constant(X) # Add constant value for X
+        X_constant = sm.add_constant(X)  # Add constant value for X
 
         if task_type == TaskType.linear_regression:
             task_name = 'Linear Regression'
             app.layout = layout_linear_regression
             residuals, fitted, summary_str = task_linear_regression(y, X_constant)
 
-            @app.callback(Output('tab-content', 'children'), 
-                         [Input('tabs', 'value')])
+            @app.callback(Output('tab-content', 'children'),
+                          [Input('tabs', 'value')])
             def render_content(tab):
-                if tab == 'tab_summary': return generate_tab_summary(summary_str, task_name)
-                elif tab == 'tab_homosced': return generate_tab_homosced(residuals, fitted, X_constant)
-                elif tab == 'tab_independence': return generate_tab_independence(residuals)
-                elif tab == 'tab_linearity': return generate_tab_linearity(df, self.target, residuals, fitted)
-                elif tab == 'tab_multicollinearity': return generate_tab_multicollinearity(X, X_constant)
-                elif tab == 'tab_normality': return generate_tab_normality(residuals)
-            
+                if tab == 'tab_summary':
+                    return generate_tab_summary(summary_str, task_name)
+                elif tab == 'tab_homosced':
+                    return generate_tab_homosced(residuals, fitted, X_constant)
+                elif tab == 'tab_independence':
+                    return generate_tab_independence(residuals)
+                elif tab == 'tab_linearity':
+                    return generate_tab_linearity(df, self.target, residuals, fitted)
+                elif tab == 'tab_multicollinearity':
+                    return generate_tab_multicollinearity(X, X_constant)
+                elif tab == 'tab_normality':
+                    return generate_tab_normality(residuals)
         # elif task_type == TaskType.binary_logistic_regression:
         #     task_binary_logistic_regression(y, X_constant)
 

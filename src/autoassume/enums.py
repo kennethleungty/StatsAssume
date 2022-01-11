@@ -5,7 +5,8 @@
 # ==========================
 import enum
 
-class TaskType(enum.IntEnum):   
+
+class TaskType(enum.IntEnum):
     linear_regression = 1
     binary_logistic_regression = 2
     multinomial_logistic_regression = 3

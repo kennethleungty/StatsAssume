@@ -8,17 +8,17 @@ import statsmodels.stats.diagnostic as smd
 import statsmodels.stats.stattools as sms
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 import scipy.stats as stats
-
 import warnings
+from .utils import _convert_stat_table_to_dashtable
+
 warnings.filterwarnings("ignore")
 
-from .utils import _convert_stat_table_to_dashtable
 
 # ---------------------
 #   Homoscedasticity
 # ---------------------
-def _get_interpretation_homosced(test_name: str, 
-                                 pvalue: float, 
+def _get_interpretation_homosced(test_name: str,
+                                 pvalue: float,
                                  sig_level: float):
     """Displays p-value of the specific homoscedasticity test, along with the test result interpretation
 
@@ -35,13 +35,13 @@ def _get_interpretation_homosced(test_name: str,
         interpretation = f'p-value of {test_name} ({round(pvalue,3)}) is <{sig_level}, suggesting that the assumption of homoscedasticity is VIOLATED'
     else:
         interpretation = f'p-value of {test_name} ({round(pvalue,3)}) is ≥{sig_level}, suggesting that the assumption of homoscedasticity is satisfied'
-    
+
     return interpretation
 
 
-def stat_breuschpagan(residuals: pd.Series, 
-                      X_constant: pd.DataFrame, 
-                      sig_level: float=0.05):
+def stat_breuschpagan(residuals: pd.Series,
+                      X_constant: pd.DataFrame,
+                      sig_level: float = 0.05):
     """Run Breusch-Pagan test (for homoscedasticity check) and display test results
 
     Args:
@@ -52,11 +52,11 @@ def stat_breuschpagan(residuals: pd.Series,
     Returns:
         Interpretation (str) and results (HTML table) of Breusch-Pagan test
     """
-    
+
     test_name = 'Breusch-Pagan Test'
-    test_df = pd.DataFrame(smd.het_breuschpagan(residuals, X_constant), 
+    test_df = pd.DataFrame(smd.het_breuschpagan(residuals, X_constant),
                            columns=['Value'],
-                           index=['Lagrange multiplier (LM) statistic', 
+                           index=['Lagrange multiplier (LM) statistic',
                                   'LM p-value', 'F statistic', 'F p-value'])
     test_df['Value'] = test_df['Value'].round(decimals=3)
     pvalue = test_df.loc['LM p-value'].values[0]
@@ -72,9 +72,9 @@ def stat_breuschpagan(residuals: pd.Series,
     return interpretation, test_table
 
 
-def stat_white(residuals: pd.Series, 
-               X_constant: pd.DataFrame, 
-               sig_level: float=0.05):
+def stat_white(residuals: pd.Series,
+               X_constant: pd.DataFrame,
+               sig_level: float = 0.05):
     """Run White test (for homoscedasticity check) and display test results
 
     Args:
@@ -88,9 +88,9 @@ def stat_white(residuals: pd.Series,
 
     test_name = 'White Test'
     test_df = pd.DataFrame(smd.het_white(residuals, X_constant),
-                        columns=['Value'],
-                        index=['Lagrange multiplier (LM) statistic', 
-                               'LM p-value', 'F statistic', 'F p-value'])
+                           columns=['Value'],
+                           index=['Lagrange multiplier (LM) statistic',
+                                  'LM p-value', 'F statistic', 'F p-value'])
     test_df['Value'] = test_df['Value'].round(decimals=3)
     pvalue = test_df.loc['LM p-value'].values[0]
 
@@ -105,8 +105,8 @@ def stat_white(residuals: pd.Series,
     return interpretation, test_table
 
 
-def stat_gq(residuals: pd.Series, 
-            X_constant: pd.DataFrame, 
+def stat_gq(residuals: pd.Series,
+            X_constant: pd.DataFrame,
             sig_level: float = 0.05):
     """Run Goldfeld-Quandt test (for homoscedasticity check) and display test results
 
@@ -121,8 +121,8 @@ def stat_gq(residuals: pd.Series,
 
     test_name = 'Goldfeld-Quandt Test'
     test_df = pd.DataFrame(smd.het_goldfeldquandt(residuals, X_constant)[:-1],
-                        columns=['value'],
-                        index=['F statistic', 'F p-value'])
+                           columns=['value'],
+                           index=['F statistic', 'F p-value'])
     pvalue = test_df.loc['F p-value'].values[0]
 
     # Display results and interpretation
@@ -150,9 +150,9 @@ def stat_durbin_watson(residuals: pd.Series):
     """
 
     test_name = 'Durbin-Watson Test'
-    statistic = round(sms.durbin_watson(residuals),3)
+    statistic = round(sms.durbin_watson(residuals), 3)
     lower_thresh, ideal, upper_thresh = 1.5, 2, 2.5
-    test_df = pd.DataFrame(statistic, 
+    test_df = pd.DataFrame(statistic,
                            columns=['Value'],
                            index=['Durbin-Watson Statistic'])
 
@@ -163,7 +163,7 @@ def stat_durbin_watson(residuals: pd.Series):
         interpretation = f'The {test_name} statistic of {statistic} is > {upper_thresh}, suggesting NEGATIVE autocorrelation of residuals, and that assumption of observation independence is VIOLATED'
     else:
         interpretation = f'The {test_name} statistic of {statistic} is close to the value of {ideal}, suggesting NO autocorrelation of residuals, and that assumption of independence is satisfied'
-    
+
     # Convert pandas df to dash table
     test_df.reset_index(drop=False, inplace=True)
     test_df.columns = ['Parameter', 'Value']
@@ -194,25 +194,25 @@ def stat_ljungbox(residuals: pd.Series,
     test_df.columns = ['Ljung-Box statistic', 'p-value']
     test_df = test_df.round(3)
 
-    pvalues = test_df['p-value'].values 
-    min_pvalue = round(float(min(pvalues)),3)
+    pvalues = test_df['p-value'].values
+    min_pvalue = round(float(min(pvalues)), 3)
 
     if min_pvalue < sig_level:
         interpretation = f'The p-value of {test_name} ({min_pvalue}) is <{sig_level}, suggesting that the assumption of observation independence (aka no autocorrelation) is VIOLATED'
     else:
         interpretation = f'The p-value of {test_name} ({min_pvalue}) is ≥{sig_level}, suggesting that the assumption of observation independence (aka no autocorrelation) is satisfied'
-    
+
     # Convert pandas df to dash table
     test_df.reset_index(drop=False, inplace=True)
     test_table = _convert_stat_table_to_dashtable(test_df)
 
     return interpretation, test_table
-    
+
 
 # ---------------------
 #   Multicollinearity
 # ---------------------
-def stat_vif(X_constant: pd.DataFrame, 
+def stat_vif(X_constant: pd.DataFrame,
              threshold: int = 10):
     """Calculate Variance Inflation Factor (VIF) values for each variable (for multi-collinearity check)
 
@@ -231,14 +231,14 @@ def stat_vif(X_constant: pd.DataFrame,
     test_df.sort_values(by='VIF', inplace=True, ascending=False)
     test_df['Below threshold'] = test_df['VIF'].apply(lambda x: u'\u2713' if x < threshold else 'X')
     test_df['VIF'] = test_df['VIF'].round(decimals=1)
-    
+
     count_below_thresh = (test_df['Below threshold'].values != 'X').sum()
     count_above_thresh = len(test_df) - count_below_thresh
     if count_above_thresh > 0:
         interpretation = f'Given there are {count_above_thresh} features with VIF greater than threshold value of {threshold}, the assumption of no multicollinearity is VIOLATED'
     else:
         interpretation = f'Given zero features with VIF greater than threshold value of {threshold}, the assumption of no multicollinearity is satisfied'
-    
+
     # Convert pandas df to dash table
     test_df.reset_index(drop=False, inplace=True)
     test_df.columns = ['Feature', 'VIF', 'Below Threshold']
@@ -250,10 +250,11 @@ def stat_vif(X_constant: pd.DataFrame,
 # ---------------------
 #       Normality
 # ---------------------
-def _get_interpretation_normality(test_name: str, 
-                                  pvalue: float, 
+def _get_interpretation_normality(test_name: str,
+                                  pvalue: float,
                                   sig_level: float):
-    """Displays p-value of the specific normality test, along with test result interpretation
+    """Displays p-value of the specific normality test,
+    along with test result interpretation
 
     Args:
         test_name (str): Name of statistical test
@@ -267,7 +268,7 @@ def _get_interpretation_normality(test_name: str,
         interpretation = f'p-value of {test_name} ({round(pvalue,3)}) is <{sig_level}, suggesting the assumption of residual normality is VIOLATED'
     else:
         interpretation = f'p-value of {test_name} ({round(pvalue,3)}) is ≥{sig_level}, suggesting the assumption of residual normality is satisfied'
-    
+
     return interpretation
 
 
@@ -285,12 +286,12 @@ def stat_anderson(residuals: pd.Series,
 
     test_name = 'Anderson-Darling test'
     statistic = stats.anderson(residuals, dist='norm').statistic
-    pvalue = round(stats.anderson(residuals, dist='norm').critical_values[2], 3) # Get 5% critical value (significance level)
+    pvalue = round(stats.anderson(residuals, dist='norm').critical_values[2], 3)  # Get 5% critical value (significance level)
 
-    test_df = pd.DataFrame.from_dict({'Anderson-Darling statistic':statistic,
-                                      'p-value': pvalue},
-                                      orient='index',
-                                      columns=['Value'])
+    test_df = pd.DataFrame.from_dict({'Anderson-Darling statistic': statistic,
+                                     'p-value': pvalue},
+                                     orient='index',
+                                     columns=['Value'])
 
     # Display results and interpretation
     interpretation = _get_interpretation_normality(test_name, pvalue, sig_level)
@@ -316,12 +317,12 @@ def stat_shapiro(residuals: pd.Series,
 
     test_name = 'Shapiro-Wilk test'
     statistic = stats.shapiro(residuals).statistic
-    pvalue = round(stats.shapiro(residuals).pvalue,3)
+    pvalue = round(stats.shapiro(residuals).pvalue, 3)
 
-    test_df = pd.DataFrame.from_dict({'Shapiro-Wilk statistic':statistic,
-                                      'p-value': pvalue},
-                                      orient='index',
-                                      columns=['Value'])
+    test_df = pd.DataFrame.from_dict({'Shapiro-Wilk statistic': statistic,
+                                     'p-value': pvalue},
+                                     orient='index',
+                                     columns=['Value'])
     test_df['Value'] = test_df['Value'].round(decimals=3)
 
     # Display results and interpretation
@@ -399,4 +400,3 @@ def stat_shapiro(residuals: pd.Series,
 #     interpretation = _get_interpretation_normality(test_name, pvalue, sig_level)
 
 #     return interpretation
-

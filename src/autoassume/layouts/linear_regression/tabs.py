@@ -18,6 +18,7 @@ task = 'linear_regression'
 # Read and load example figures as base64 image objects
 example_fig_path = f'./figures/{task}'
 
+
 def generate_tab_summary(summary,
                          task_type: str):
     """Display OLS regression summary as HTML
@@ -30,27 +31,27 @@ def generate_tab_summary(summary,
     Returns:
         HTML: OLS regression summary
     """
-    
-    # TODO: Need to adjust this to accomodate logistic regression in the future. Currently catered to linear reg
+
+    # TODO: Need to adjust this to accomodate logistic regression in the future
     ols_table_1 = summary.tables[0].as_html()
     ols_table_2 = summary.tables[1].as_html()
     ols_table_3 = summary.tables[2].as_html()
 
-    tab_summary = html.Div(style = {'text-align':'center'},
-                        children=[
-                        display_tab_header(assumption_name='Summary',
-                                           assumption_intro='Brief description of regression results'),
-                        html.Br(),
-                        display_regression_summary('Linear Regression Results',
-                                                    ols_table_1,
-                                                    ols_table_2,
-                                                    ols_table_3),
-                        html.Br(),
-                        display_logs(task_type)
-                        ])
-        
+    tab_summary = html.Div(children=[
+                           display_tab_header(assumption_name='Summary',
+                                              assumption_intro='Brief description of regression results'),
+                           html.Br(),
+                           display_regression_summary('Linear Regression Results',
+                                                      ols_table_1,
+                                                      ols_table_2,
+                                                      ols_table_3),
+                           html.Br(),
+                           display_logs()
+                           ],
+                           style={'text-align': 'center'})
+
     return tab_summary
-     
+
 
 def generate_tab_homosced(residuals: pd.Series,
                           fitted: pd.Series,
@@ -73,33 +74,33 @@ def generate_tab_homosced(residuals: pd.Series,
     interpretation_white, table_white = stat_white(residuals, X_constant)
     # output_str_gq = stat_gq(residuals, X_constant)
 
-    tab_homosced = html.Div(style = {'text-align':'center'},
-                    children=[
-                    display_tab_header(assumption_name='Assumption Check - Homoscedasticity',
-                                       assumption_intro='Brief description of specific assumption check'),
-                    html.Br(),
-                    display_visual_plot(plot_name='Residual Plot', 
-                                        img_plot=output_plot_residual,
-                                        img_examples=f'data:image/png;base64,{fig_homosced.decode()}',
-                                        explainer=explain_plot_residual_homosced),
-                    html.Br(),
-                    display_stat_results(test_name='Breusch-Pagan Test',
-                                        interpretation=interpretation_bp,
-                                        test_table=table_bp),
-                    html.Br(),
-                    display_stat_results(test_name='White Test',
-                                        interpretation=interpretation_white,
-                                        test_table=table_white),
-                    html.Br(),
-                    display_assumption_details(explain_description_homosced,
-                                              explain_solution_homosced)
-                    ])
+    tab_homosced = html.Div(style={'text-align': 'center'},
+                            children=[
+                            display_tab_header(assumption_name='Assumption Check - Homoscedasticity',
+                                               assumption_intro='Brief description of specific assumption check'),
+                            html.Br(),
+                            display_visual_plot(plot_name='Residual Plot',
+                                                img_plot=output_plot_residual,
+                                                img_examples=f'data:image/png;base64,{fig_homosced.decode()}',
+                                                explainer=explain_plot_residual_homosced),
+                            html.Br(),
+                            display_stat_results(test_name='Breusch-Pagan Test',
+                                                 interpretation=interpretation_bp,
+                                                 test_table=table_bp),
+                            html.Br(),
+                            display_stat_results(test_name='White Test',
+                                                 interpretation=interpretation_white,
+                                                 test_table=table_white),
+                            html.Br(),
+                            display_assumption_details(explain_description_homosced,
+                                                       explain_solution_homosced)
+                            ])
 
     return tab_homosced
 
 
 def generate_tab_independence(residuals: pd.Series):
-        """Generate and display HTML tab report of independence assumption check
+    """Generate and display HTML tab report of independence assumption check
 
         Args:
             residuals (pd.Series): Residual values of regression model
@@ -108,151 +109,154 @@ def generate_tab_independence(residuals: pd.Series):
             html.Div: HTML report of independence assumption check
         """
 
-        interpretation_dw, table_dw = stat_durbin_watson(residuals)
-        interpretation_lb, table_lb = stat_ljungbox(residuals)
-        output_plot_acf = plot_acf(residuals)
-        fig_independence = base64.b64encode(open(f'{example_fig_path}/independence.png', 'rb').read())
+    interpretation_dw, table_dw = stat_durbin_watson(residuals)
+    interpretation_lb, table_lb = stat_ljungbox(residuals)
+    output_plot_acf = plot_acf(residuals)
+    fig_independence = base64.b64encode(open(f'{example_fig_path}/independence.png', 'rb').read())
 
-        tab_independence = html.Div(style = {'text-align':'center'},
+    tab_independence = html.Div(style={'text-align': 'center'},
                                 children=[
                                 display_tab_header(assumption_name='Assumption Check - Independence',
                                                    assumption_intro='Brief description of specific assumption check'),
                                 html.Br(),
-                                display_visual_plot(plot_name='Autocorrelation Function (ACF) Plot', 
-                                                   img_plot=output_plot_acf,
-                                                   img_examples=f'data:image/png;base64,{fig_independence.decode()}',
-                                                   explainer=explain_plot_acf),
+                                display_visual_plot(plot_name='Autocorrelation Function (ACF) Plot',
+                                                    img_plot=output_plot_acf,
+                                                    img_examples=f'data:image/png;base64,{fig_independence.decode()}',
+                                                    explainer=explain_plot_acf),
                                 html.Br(),
                                 display_stat_results(test_name='Durbin-Watson Test',
-                                                    interpretation=interpretation_dw,
-                                                    test_table=table_dw),
+                                                     interpretation=interpretation_dw,
+                                                     test_table=table_dw),
                                 html.Br(),
                                 display_stat_results(test_name='Ljung-Box Test',
-                                                    interpretation=interpretation_lb,
-                                                    test_table=table_lb),
+                                                     interpretation=interpretation_lb,
+                                                     test_table=table_lb),
                                 html.Br(),
                                 display_assumption_details(explain_description_independence,
                                                            explain_solution_independence)
                                 ])
 
-        return tab_independence
+    return tab_independence
 
 
 def generate_tab_linearity(df: pd.DataFrame,
                            target: str,
-                           residuals: pd.Series, 
+                           residuals: pd.Series,
                            fitted: pd.Series):
-        """Generate and display HTML tab report of linearity assumption check
+    """Generate and display HTML tab report of linearity assumption check
 
-        Args:
-            df (pd.DataFrame): Dataframe of pre-processed data containing predictors and target variables
-            target (str): Name of target variable
-            residuals (pd.Series): Residual values from regression model
-            fitted (pd.Series): Fitted (aka predicted) values from model
+    Args:
+        df (pd.DataFrame): Dataframe of pre-processed data containing predictors and target variables
+        target (str): Name of target variable
+        residuals (pd.Series): Residual values from regression model
+        fitted (pd.Series): Fitted (aka predicted) values from model
 
-        Returns:
-            html.Div: HTML report of linearity assumption check
-        """
+    Returns:
+        html.Div: HTML report of linearity assumption check
+    """
 
-        check_type = 'linearity'
-        output_plot_residual = plot_residual_fit(residuals, fitted, check_type)
-        fig_linearity = base64.b64encode(open(f'{example_fig_path}/linearity.png', 'rb').read())
-        output_plot_pairplot = plot_pairplot(df, target)
+    check_type = 'linearity'
+    output_plot_residual = plot_residual_fit(residuals, fitted, check_type)
+    fig_linearity = base64.b64encode(open(f'{example_fig_path}/linearity.png', 'rb').read())
+    output_plot_pairplot = plot_pairplot(df, target)
 
-        tab_linearity = html.Div(style = {'text-align':'center'},
-                children=[
-                display_tab_header(assumption_name='Assumption Check - Linearity',
-                                   assumption_intro='Brief description of specific assumption check'),
-                html.Br(),
-                display_visual_plot(plot_name='Residual Plot', 
-                                    img_plot=output_plot_residual,
-                                    img_examples=f'data:image/png;base64,{fig_linearity.decode()}',
-                                    explainer=explain_plot_residual_linearity),
-                html.Br(),
-                display_visual_plot(plot_name='Pair-Plot', 
-                                    img_plot=output_plot_pairplot,
-                                    img_examples='None',
-                                    explainer=explain_plot_pairplot),
-                html.Br(),
-                display_assumption_details(explain_description_linearity,
-                                           explain_solution_linearity)
-                ])
+    tab_linearity = html.Div(style={'text-align': 'center'},
+                             children=[
+                             display_tab_header(assumption_name='Assumption Check - Linearity',
+                                                assumption_intro='Brief description of specific assumption check'),
+                             html.Br(),
+                             display_visual_plot(plot_name='Residual Plot',
+                                                 img_plot=output_plot_residual,
+                                                 img_examples=f'data:image/png;base64,{fig_linearity.decode()}',
+                                                 explainer=explain_plot_residual_linearity),
+                             html.Br(),
+                             display_visual_plot(plot_name='Pair-Plot',
+                                                 img_plot=output_plot_pairplot,
+                                                 img_examples='None',
+                                                 explainer=explain_plot_pairplot),
+                             html.Br(),
+                             display_assumption_details(explain_description_linearity,
+                                                        explain_solution_linearity)
+                             ])
 
-        return tab_linearity
+    return tab_linearity
 
 
 def generate_tab_multicollinearity(X: pd.DataFrame,
                                    X_constant: pd.DataFrame):
-        """Generate and display HTML tab report of multi-collinearity assumption check
+    """Generate and display HTML tab report of multi-collinearity assumption check
 
-        Args:
-            X (pd.DataFrame): Dataframe with predictor variables (without intercept)
-            X_constant (pd.DataFrame): Dataframe with predictor variables, and with constant (intercept) included
+    Args:
+        X (pd.DataFrame): Dataframe with predictor variables (without intercept)
+        X_constant (pd.DataFrame): Dataframe with predictor variables, and with constant (intercept) included
 
-        Returns:
-            html.Div: HTML report of multi-collinearity assumption check
-        """
+    Returns:
+        html.Div: HTML report of multi-collinearity assumption check
+    """
 
-        output_plot_corr_heatmap = plot_corr_heatmap(X, corner=True) # Show corr matrix as corner
-        interpretation_vif, table_vif = stat_vif(X_constant)
-        
-        tab_multicollinearity = html.Div(style = {'text-align':'center'},
-                children=[
-                display_tab_header(assumption_name='Assumption Check - Multicollinearity',
-                                   assumption_intro='Brief description of specific assumption check'),
-                html.Br(),
-                display_visual_plot(plot_name='Correlation Matrix', 
-                                    img_plot=output_plot_corr_heatmap,
-                                    img_examples='None',
-                                    explainer=explain_plot_corrmatrix),
-                html.Br(),
-                display_stat_results(test_name='Variance Inflation Factor (VIF)',
-                                     interpretation=interpretation_vif,
-                                     test_table=table_vif),
-                html.Br(),
-                display_assumption_details(explain_description_multicollinearity,
-                                           explain_solution_multicollinearity)
-                ])
+    output_plot_corr_heatmap = plot_corr_heatmap(X, corner=True)  # Show corr matrix as corner
+    interpretation_vif, table_vif = stat_vif(X_constant)
 
-        return tab_multicollinearity
+    tab_multicollinearity = html.Div(style={'text-align': 'center'},
+                                     children=[
+                                     display_tab_header(assumption_name='Assumption Check - Multicollinearity',
+                                                        assumption_intro='Brief description of specific assumption check'),
+                                     html.Br(),
+                                     display_visual_plot(plot_name='Correlation Matrix',
+                                                         img_plot=output_plot_corr_heatmap,
+                                                         img_examples='None',
+                                                         explainer=explain_plot_corrmatrix),
+                                     html.Br(),
+                                     display_stat_results(test_name='Variance Inflation Factor (VIF)',
+                                                          interpretation=interpretation_vif,
+                                                          test_table=table_vif),
+                                     html.Br(),
+                                     display_assumption_details(explain_description_multicollinearity,
+                                                                explain_solution_multicollinearity)
+                                     ])
+
+    return tab_multicollinearity
 
 
 def generate_tab_normality(residuals: pd.Series):
-        """Generate and display HTML tab report of residual normality assumption check
+    """Generate and display HTML tab report of residual normality assumption check
 
-        Args:
-            residuals (pd.Series): Residual values from regression model
+    Args:
+        residuals (pd.Series): Residual values from regression model
 
-        Returns:
-            html.Div: HTML report of residual normality assumption check
-        """
+    Returns:
+        html.Div: HTML report of residual normality assumption check
+    """
 
-        output_plot_qq = plot_qq(residuals)
-        fig_normality = base64.b64encode(open(f'{example_fig_path}/normality.png', 'rb').read())
-        interpretation_shapiro, table_shapiro = stat_shapiro(residuals)
-        
-        # Only showing the main statistical test i.e. Shapiro
-        # output_str_anderson = stat_anderson(residuals)
-        # output_str_jarque_bera = stat_jarque_bera(residuals)
-        # output_str_lilliefors = stat_lilliefors(residuals)
+    output_plot_qq = plot_qq(residuals)
+    fig_normality = base64.b64encode(open(f'{example_fig_path}/normality.png', 'rb').read())
+    interpretation_shapiro, table_shapiro = stat_shapiro(residuals)
 
-        tab_normality = html.Div(style = {'text-align':'center'},
-                children=[
-                display_tab_header(assumption_name='Assumption Check - Normality',
-                                   assumption_intro='Brief description of specific assumption check'),
-                html.Br(),
-                display_visual_plot(plot_name='Quantile-Quantile (QQ) Plot', 
-                                    img_plot=output_plot_qq,
-                                    img_examples=f'data:image/png;base64,{fig_normality.decode()}',
-                                    explainer=explain_plot_qq
-                                ),
-                html.Br(),
-                display_stat_results(test_name='Shapiro-Wilk Test',
-                                     interpretation=interpretation_shapiro,
-                                     test_table=table_shapiro),
-                html.Br(),
-                display_assumption_details(explain_description_normality,
-                                           explain_solution_normality)
-                ])
+    # Only showing the main statistical test i.e. Shapiro
+    # output_str_anderson = stat_anderson(residuals)
+    # output_str_jarque_bera = stat_jarque_bera(residuals)
+    # output_str_lilliefors = stat_lilliefors(residuals)
 
-        return tab_normality
+    tab_normality = html.Div(style={'text-align': 'center'},
+                             children=[
+                             display_tab_header(assumption_name='Assumption Check - Normality',
+                                                assumption_intro='Brief description of specific assumption check'
+                                                ),
+                             html.Br(),
+                             display_visual_plot(plot_name='Quantile-Quantile (QQ) Plot',
+                                                 img_plot=output_plot_qq,
+                                                 img_examples=f'data:image/png;base64,{fig_normality.decode()}',
+                                                 explainer=explain_plot_qq
+                                                 ),
+                             html.Br(),
+                             display_stat_results(test_name='Shapiro-Wilk Test',
+                                                  interpretation=interpretation_shapiro,
+                                                  test_table=table_shapiro
+                                                  ),
+                             html.Br(),
+                             display_assumption_details(explain_description_normality,
+                                                        explain_solution_normality
+                                                        )
+                             ])
+
+    return tab_normality
