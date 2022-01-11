@@ -8,14 +8,14 @@ with open("requirements.txt") as f:
     required_libs = f.read().splitlines()
 
 setuptools.setup(
-        name="pyassume",
-        version= '0.0.4',
+        name="autoassume",
+        version= '0.0.1',
         author="Kenneth Leung",
-        author_email="pyassume@gmail.com",
-        description="PyAssume - Automated Assumption Checks for Regression Models",
+        author_email="autoassume@gmail.com",
+        description="AutoAssume - Automated Assumption Checks for Regression Models",
         long_description=long_description,
         long_description_content_type="text/markdown",
-        url="https://github.com/pyassume/pyassume",
+        url="https://github.com/kennethleungty/autoassume",
         classifiers=[
             "Programming Language :: Python :: 3",
             "License :: OSI Approved :: MIT License",
