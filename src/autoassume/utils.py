@@ -13,9 +13,9 @@ import base64
 from typing import Optional
 
 # Styling settings
-dt_font_size = 17
+dt_font_size = 14
 dt_font_family = 'Arial'
-padding_size = '10px'
+padding_size = '8px'
 center_separator = '2px solid #FFD700'
 
 def display_base64_plot(fig):
@@ -42,21 +42,49 @@ def display_tab_header(assumption_name: str,
 
     return html.Div([html.H5([assumption_name],
                         style={
-                        'padding':'0px 0px 13px 0px',
+                        'padding':'0px 0px 10px 0px',
                         'text-align':'center',
                         # 'background':'#FFFEFB',
                         'color':'black',
-                        'font-size':'26px',
-                        'margin':'0px',
+                        'font-size':'24px',
+                        'margin':'0',
                         # 'border-top':'2px solid #FFD700',
                         'border-bottom':'2px solid #FFD700'
                         })],
                     )
-    # return dbc.Card([
-    #                 dbc.CardHeader(html.H5(assumption_name)),
-                    # dbc.CardBody(html.Small(assumption_intro))
-                    # ])
 
+def display_card_header(card_header_title: str):
+    
+    return dbc.CardHeader([html.H5(children=[card_header_title],
+                                  style={'font-size':'20px',
+                                        'padding':'14px 0',
+                                        #  'font-size':'12px',
+                                        #  'font-size':'12px',   
+                                        }
+                                  )],
+                                  style={'background-color':'#F4F7FC',
+                                        'padding':'5px 0',
+                                        'margin':'0px'}
+                        )
+
+
+def display_card_subheader(card_subheader_title: str):
+    return html.H6(children=[card_subheader_title],
+                   style={'text-align':'center'
+                         })
+
+
+def display_plot_img(img, width):
+    return html.Img(src=img,
+                    style={'max-width':width,
+                           'padding-top':'8px'})
+
+
+def display_text_paragraph(text: str):
+    return html.Small(children=[text],
+                   style={'font-size':'15px'
+                         })
+ 
 
 def display_regression_summary(results_name: str, 
                                html_table_1: str,
@@ -69,7 +97,7 @@ def display_regression_summary(results_name: str,
         dbc_card_table_3 = _convert_summary_to_dashtable(html_table_3, table_type='ols_table_3')
 
         return dbc.Card([
-                        dbc.CardHeader(html.H5(results_name)),
+                        display_card_header(results_name),
                         dbc.CardBody(children=[
                                     dbc_card_table_1,
                                     html.Hr(),
@@ -87,11 +115,11 @@ def display_stat_results(test_name: str,
 
     layout = html.Div([
         dbc.Card([
-            dbc.CardHeader([html.H5(test_name)]),
+            display_card_header(test_name),
             dbc.CardBody([
                 dbc.Row([
                     dbc.Col([
-                        html.H6('Your Results'),
+                        display_card_subheader('Your Results'),
                         html.Div([test_table],
                                   style={'display':'flex',
                                          'align-items':'center',
@@ -102,9 +130,8 @@ def display_stat_results(test_name: str,
                     style={'border-right': center_separator}),
 
                     dbc.Col([
-                        html.H6(['Interpretation'],
-                                style={'text-align': 'center'}),
-                        html.Small(interpretation)
+                        display_card_subheader('Interpretation'),
+                        display_text_paragraph(interpretation)
                     ], width=6,
                        style={'text-align': 'justify'}),                    
                     ])
@@ -129,33 +156,27 @@ def display_visual_plot(plot_name: str,
         left_width, right_width = 6,6
         img_plot_width = '440px'
         example_div = html.Div([
-                        html.H6(['Examples'],
-                                style={'text-align': 'center'}),
-                        html.Img(src=img_examples,
-                                 style={'max-width':img_plot_width,
-                                        'padding-top':padding_size}),
+                        display_card_subheader('Examples'),
+                        display_plot_img(img_examples, img_plot_width),
                         html.Hr(),
                         html.P()
         ])
 
     layout = html.Div([
         dbc.Card([
-            dbc.CardHeader([html.H5(plot_name)]),
+            display_card_header(plot_name),
             dbc.CardBody([
                 dbc.Row([
                     dbc.Col([
-                        html.H6('Your Plot'),
-                        html.Img(src=img_plot,
-                                 style={'max-width':img_plot_width,
-                                        'padding-top':padding_size})
+                        display_card_subheader('Your Plot'),
+                        display_plot_img(img_plot, img_plot_width)
                     ], width=left_width,
                     style={'border-right':center_separator}),
 
                     dbc.Col([
                         example_div,
-                        html.H6(['Plot Explanation'],
-                                style={'text-align': 'center'}),
-                        html.Small(explainer)
+                        display_card_subheader('Plot Explanation'),
+                        display_text_paragraph(explainer)
                     ], width=right_width,
                        style={'text-align':'justify'}),                    
                     ])
@@ -171,20 +192,18 @@ def display_assumption_details(description: str,
                                solution: str):
     return html.Div([
         dbc.Card([
-            dbc.CardHeader([html.H5('Details')]),
+            display_card_header('Details'),
             dbc.CardBody([
                 dbc.Row([
                     dbc.Col([
-                        html.H6(['Description'],
-                                style={'text-align': 'center'}),
-                        html.Small(description)
+                        display_card_subheader('Description'),
+                        display_text_paragraph(description)
                     ], width=6,
                     style={'border-right': center_separator,
                            'text-align':'justify'}),
                     dbc.Col([
-                        html.H6(['Solution'],
-                                style={'text-align':'center'}),
-                        html.Small(solution)
+                        display_card_subheader('Solution'),
+                        display_text_paragraph(solution)
                     ], width=6,
                        style={'text-align':'justify'}
                         ),                    
@@ -195,9 +214,10 @@ def display_assumption_details(description: str,
 
 
 def display_logs(task_name: str):
+
     return html.Div([
         dbc.Card([
-            dbc.CardHeader([html.H5('Logs')]),
+            display_card_header('Logs'),
             dbc.CardBody([
                 dbc.Row(children=[
                     html.Small(f'[+] Running task: {task_name}'),
@@ -216,7 +236,9 @@ def _convert_summary_to_dashtable(html_table: str,
                                df_right: pd.DataFrame,
                                table_type: str):
 
-        style_header = {'display':'none'}
+        style_header = {'display':'none',
+                        'padding':'0',
+                        'margin':'0'}
         style_cell={'padding':padding_size,
                     'fontSize':dt_font_size, 
                     'font-family':dt_font_family}
@@ -231,7 +253,7 @@ def _convert_summary_to_dashtable(html_table: str,
                                     id=f'{table_type}_left',
                                     columns=[{"name": i, "id": i} for i in df_left.columns],
                                     data=df_left.to_dict('records'),
-                                    style_header = style_header, # Hide column headers
+                                    style_header=style_header, # Hide column headers
                                     style_cell=style_cell,
                                     style_cell_conditional=style_cell_conditional
                                             ) 
@@ -313,6 +335,8 @@ def _convert_stat_table_to_dashtable(stat_table: pd.DataFrame):
                             )
                     
     return dbc_output
+
+
 
 
 # Not using this function because we are loading example figures directly into HTML inside tabs.py

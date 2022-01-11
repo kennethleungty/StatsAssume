@@ -9,9 +9,9 @@ with open("requirements.txt") as f:
 
 setuptools.setup(
         name="autoassume",
-        version= '0.0.1',
+        version= '0.0.2',
         author="Kenneth Leung",
-        author_email="autoassume@gmail.com",
+        author_email="autoassume@outlook.com",
         description="AutoAssume - Automated Assumption Checks for Regression Models",
         long_description=long_description,
         long_description_content_type="text/markdown",

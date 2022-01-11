@@ -12,11 +12,15 @@ def load_data(dataset_name: str,
               file_ext: str = '.csv'):
 
     if processed:
-        filename = dataset_name + '_processed'
+        try:
+            filename = dataset_name + '_processed'
+            data = pd.read_csv(raw_url + filename + file_ext) 
+        except:
+            filename = dataset_name
+            data = pd.read_csv(raw_url + dataset_name + file_ext) 
     else:
         filename = dataset_name
-
-    data = pd.read_csv(raw_url + filename + file_ext) 
+        data = pd.read_csv(raw_url + filename + file_ext) 
     
     if save_copy:
         data.to_csv(filename, index=False)

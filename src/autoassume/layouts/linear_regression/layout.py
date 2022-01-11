@@ -29,7 +29,7 @@ layout_linear_regression = html.Div([
                     "background": "#F7F7F7"
                 },
                 style={
-                    'font-size':'17px',
+                    'font-size':'16px',
                     'text-align':'center',
                     'border-width': '4px',
                     'padding':'0px 0px 0px 0px'

@@ -16,6 +16,9 @@ from jupyter_dash import JupyterDash
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
+import warnings
+warnings.filterwarnings("ignore")
+
 from .layouts.linear_regression.layout import layout_linear_regression
 from .layouts.linear_regression.tabs import *
 from .enums import TaskType
@@ -23,11 +26,7 @@ from .plots import *
 from .stats import *
 from .tasks import *
 from .logger import logger
-
-import warnings
-warnings.filterwarnings("ignore")
-
-logger.add('logs/pyassume_check.log')
+logger.add('logs/autoassume_check.log', mode="w")
 
 @dataclass
 class Checker:
@@ -139,8 +138,8 @@ class Checker:
                                              drop_first=True)
                     df_encode = pd.concat([df_encode, dummies], axis=1)
                     df_encode.drop([feature], axis=1, inplace=True)
-                    logger.info(f'[+] Completed one-hot encoding of categorical features: {categorical_features}')
-
+                    
+                logger.info(f'[+] Completed one-hot encoding of categorical features: {categorical_features}')
                 return df_encode
 
             elif self.categorical_encoder == 'ord': # Ordinal encoding
