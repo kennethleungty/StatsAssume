@@ -1,15 +1,15 @@
 # =================================
 # Module: Utility Functions
 # Author: Kenneth Leung
-# Last Modified: 11 Jan 2022
+# Last Modified: 12 Jan 2022
 # =================================
 import pandas as pd
 import matplotlib.pyplot as plt
 import base64
 import re
+from dash import html
 from dash import dash_table as dt
 import dash_bootstrap_components as dbc
-from dash import html
 from io import BytesIO
 from typing import Optional
 
@@ -60,7 +60,7 @@ def display_card_header(card_header_title: str):
 
     return dbc.CardHeader([html.H5(children=[card_header_title],
                                    style={'font-size': '20px',
-                                          'padding': '14px 0'
+                                          'padding': '6px 0'
                                           }
                                    )],
                           style={'background-color': '#F4F7FC',
