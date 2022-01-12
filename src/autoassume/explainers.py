@@ -5,13 +5,39 @@
 # ===========================================
 # Reference: https://people.duke.edu/~rnau/testing.htm
 
+# ---------------------------------
+#   Overview - Linear Regression
+# ----------------------------------
+explain_description_linear_regression = """
+    There are a number of assumptions that justify the use of linear regression models for purposes 
+    of inference or prediction.
+
+    (1) Linearity of relationship between dependent (target) and independent (predictor) variables
+
+    (2) Statistical independence of errors (in particular, no correlation between consecutive 
+    errors (aka autcorrelation) in the case of time series data)
+
+    (3) Homoscedasticity (constant variance) of the errors
+
+    (4) Normality of error distribution
+
+    (5) No multicollinearity between independent (predictor) variables
+
+    If any of these assumptions is violated (i.e., if there are nonlinear relationships between 
+    dependent and independent variables or the errors exhibit correlation, heteroscedasticity, 
+    or non-normality), then the forecasts, confidence intervals, and scientific insights yielded 
+    by a regression model may be (at best) inefficient or (at worst) seriously biased or misleading.
+
+    """
+
+
 # ---------------------
 #   Homoscedasticity
 # ---------------------
 explain_description_homosced = """
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut \
     labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris \
-    nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+    nisi ut aliquip ex ea commodo consequat. Dudfsis aute irure dolor in reprehenderit
     """
 
 explain_solution_homosced = """
@@ -21,7 +47,7 @@ explain_solution_homosced = """
     """
 
 explain_plot_residual_homosced = """
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut \
+    Lorem ipsum dolor sdvxbfit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut \
     labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
     """
 
