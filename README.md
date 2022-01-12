@@ -1,5 +1,6 @@
-# Header Here
-[![Build Status](https://app.travis-ci.com/pyassume/pyassume.svg?token=92hwNc18YjzQaMjtm2v7&branch=main)](https://app.travis-ci.com/pyassume/pyassume)
+# AutoAssume
+Automated Assumption Checks for Regression Models
+
 
 
 ### Datasets
