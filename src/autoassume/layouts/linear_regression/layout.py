@@ -5,7 +5,7 @@
 # ==============================================
 from dash import html, dcc
 
-# Define HTML layout for linear regression dashboard report
+# Setup HTML layout for linear regression dashboard report
 layout_linear_regression = html.Div([
     html.P(dcc.Tabs(id="tabs", value='tab_summary',
                     children=[dcc.Tab(label='Regression Summary',

@@ -1,7 +1,7 @@
 # ==========================
 # Module: Datasets
 # Author: Kenneth Leung
-# Last Modified: 07 Jan 2022
+# Last Modified: 12 Jan 2022
 # ==========================
 import pandas as pd
 
@@ -11,6 +11,18 @@ def load_data(dataset_name: str,
               save_copy: bool = False,
               raw_url: str = 'https://raw.githubusercontent.com/kennethleungty/Logistic-Regression-Assumptions/main/datasets/',
               file_ext: str = '.csv'):
+    """Loads toy dataset for assumption checks
+
+    Args:
+        dataset_name (str): Name of dataset (selected from list of available datasets)
+        processed (bool, optional): If True, retrieves the processed data version instead of raw one. Defaults to False.
+        save_copy (bool, optional): Save a copy of dataset locally. Defaults to False.
+        raw_url (str, optional): URL where datasets are stored. Defaults to 'https://raw.githubusercontent.com/kennethleungty/Logistic-Regression-Assumptions/main/datasets/'.
+        file_ext (str, optional): Extension of data file. Defaults to '.csv'.
+
+    Returns:
+        pd.DataFrame: Dataframe of the retrieved toy dataset
+    """
 
     if processed:
         try:

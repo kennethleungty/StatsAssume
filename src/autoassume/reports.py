@@ -1,7 +1,7 @@
 # ===============================
 # Module: Assumption Main Checks
 # Author: Kenneth Leung
-# Last Modified: 10 Jan 2022
+# Last Modified: 24 Jan 2022
 # ===============================
 from dataclasses import dataclass
 from typing import List, Optional
@@ -21,7 +21,6 @@ from .plots import *
 from .stats import *
 from .tasks import *
 from .logger import logger
-logger.add('logs/autoassume_check.log', mode="w")
 
 warnings.filterwarnings("ignore")
 
@@ -58,7 +57,7 @@ class Checker:
             Exception: If unable to infer type of regression based on target variable
 
         Returns:
-            [type]: [description]
+            Type of regression modelling task to be executed
         """
         if self.task is not None:
             if self.task == 'linear regression':
@@ -70,7 +69,7 @@ class Checker:
             else:
                 raise ValueError('Unable to infer type of regression task')
 
-            logger.info(f"[+]>> Executing task type as specified by user: {task_type.name}")
+            logger.info(f"[+]>> Executing task type (specified by user): {task_type.name}")
 
         else:
             # Infer target type
@@ -98,7 +97,7 @@ class Checker:
             Exception: If categorical variables remain non-encoded
 
         Returns:
-            pandas.DataFrame: Output dataframe after processing of categorical features
+            pd.DataFrame: Output dataframe after encoding of categorical features
         """
         # Automatically detect categorical features
         categorical_features_auto = []
@@ -152,7 +151,7 @@ class Checker:
             return self.df
 
     def report(self):
-        """Run regression modeling and assumption checks, and display output as JupyterDash dashboard report
+        """Run regression modeling and assumption checks, and display output report as JupyterDash dashboard
 
         Raises:
             Exception: If input string of regression type is not recognized

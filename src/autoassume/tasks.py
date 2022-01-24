@@ -1,7 +1,7 @@
 # ==========================
 # Module: Regression Tasks
 # Author: Kenneth Leung
-# Last Modified: 01 Jan 2022
+# Last Modified: 12 Jan 2022
 # ==========================
 import pandas as pd
 import statsmodels.api as sm
@@ -11,7 +11,7 @@ import statsmodels.api as sm
 
 def task_linear_regression(y: pd.Series,
                            X: pd.DataFrame):
-    """Run linear regression task (ordinary least squares)
+    """Run linear regression task (ordinary least squares) with statsmodel library
 
     Args:
         y (pd.Series): Series of target variable

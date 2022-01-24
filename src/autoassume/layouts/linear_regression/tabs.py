@@ -26,10 +26,9 @@ def generate_tab_summary(summary,
     Args:
         summary (statsmodels.iolib.summary.Summary): statsmodel OLS regression summary (comprising 3 tables)
         task_type (str): Type of regression task that was executed
-        log_categorical (str): Description of categorical feature processing
 
     Returns:
-        HTML: OLS regression summary
+        html.Div: OLS regression summary
     """
 
     # TODO: Need to adjust this to accomodate logistic regression in the future
@@ -46,7 +45,10 @@ def generate_tab_summary(summary,
                                                       ols_table_2,
                                                       ols_table_3),
                            html.Br(),
-                           display_logs()
+                           display_logs(),
+                           html.Br(),
+                           display_assumption_details(explain_description_linear_regression,
+                                                      explain_solution_linear_regression)
                            ],
                            style={'text-align': 'center'})
 
@@ -64,7 +66,7 @@ def generate_tab_homosced(residuals: pd.Series,
         X_constant (pd.DataFrame): Predictor dataframe with constant (intercept) included
 
     Returns:
-        html.Div: HTML report of homoscedasticity assumption check
+        html.Div: Report of homoscedasticity assumption check
     """
 
     check_type = 'homosced'
@@ -106,7 +108,7 @@ def generate_tab_independence(residuals: pd.Series):
             residuals (pd.Series): Residual values of regression model
 
         Returns:
-            html.Div: HTML report of independence assumption check
+            html.Div: Report of independence assumption check
         """
 
     interpretation_dw, table_dw = stat_durbin_watson(residuals)
@@ -152,7 +154,7 @@ def generate_tab_linearity(df: pd.DataFrame,
         fitted (pd.Series): Fitted (aka predicted) values from model
 
     Returns:
-        html.Div: HTML report of linearity assumption check
+        html.Div: Report of linearity assumption check
     """
 
     check_type = 'linearity'
@@ -191,7 +193,7 @@ def generate_tab_multicollinearity(X: pd.DataFrame,
         X_constant (pd.DataFrame): Dataframe with predictor variables, and with constant (intercept) included
 
     Returns:
-        html.Div: HTML report of multi-collinearity assumption check
+        html.Div: Report of multi-collinearity assumption check
     """
 
     output_plot_corr_heatmap = plot_corr_heatmap(X, corner=True)  # Show corr matrix as corner
@@ -225,9 +227,9 @@ def generate_tab_normality(residuals: pd.Series):
         residuals (pd.Series): Residual values from regression model
 
     Returns:
-        html.Div: HTML report of residual normality assumption check
+        html.Div: Report of residual normality assumption check
     """
-
+    output_plot_residual_histogram = plot_residual_histogram(residuals)
     output_plot_qq = plot_qq(residuals)
     fig_normality = base64.b64encode(open(f'{example_fig_path}/normality.png', 'rb').read())
     interpretation_shapiro, table_shapiro = stat_shapiro(residuals)
@@ -247,6 +249,12 @@ def generate_tab_normality(residuals: pd.Series):
                                                  img_plot=output_plot_qq,
                                                  img_examples=f'data:image/png;base64,{fig_normality.decode()}',
                                                  explainer=explain_plot_qq
+                                                 ),
+                             html.Br(),
+                             display_visual_plot(plot_name='Histogram of Residuals',
+                                                 img_plot=output_plot_residual_histogram,
+                                                 img_examples='None',
+                                                 explainer=explainer_plot_residual_histogram
                                                  ),
                              html.Br(),
                              display_stat_results(test_name='Shapiro-Wilk Test',

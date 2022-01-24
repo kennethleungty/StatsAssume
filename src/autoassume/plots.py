@@ -169,7 +169,7 @@ def plot_pairplot(df: pd.DataFrame,  # Main dataframe
     pairplot = sns.pairplot(data=df,
                             y_vars=target,
                             x_vars=X_cols,
-                            aspect=1,
+                            aspect=0.9,
                             kind=plot_kind)
 
     fig = pairplot.fig
@@ -212,12 +212,12 @@ def plot_corr_heatmap(X: pd.DataFrame,
         mask[np.triu_indices_from(mask)] = True
 
         with sns.axes_style(axes_style):
-            ax = sns.heatmap(corrMatrix,
-                             mask=mask,
-                             annot=True,
-                             vmax=.3,
-                             square=True,
-                             cmap=cmap)
+            sns.heatmap(corrMatrix,
+                        mask=mask,
+                        annot=True,
+                        vmax=.3,
+                        square=True,
+                        cmap=cmap)
 
     # Save plot as base64 image object for display
     output_plot = display_base64_plot(fig)
@@ -246,6 +246,27 @@ def plot_qq(residuals: pd.Series):
                                         markerfacecolor='gray',
                                         markeredgecolor='gray',
                                         alpha=0.8)
+
+    # Save plot as base64 image object for display
+    output_plot = display_base64_plot(fig)
+
+    return output_plot
+
+
+def plot_residual_histogram(residuals: pd.Series):
+    """Generate and display histogram of residuals
+
+    Args:
+        residuals (pd.Series): Residual values from model
+
+    Returns:
+        base64 object: Encoded image of residual histogram
+    """
+    fig, ax = plt.subplots(1, 1, figsize=(5, 5))
+
+    sns.histplot(residuals,
+                 kde=True,
+                 ax=ax)
 
     # Save plot as base64 image object for display
     output_plot = display_base64_plot(fig)

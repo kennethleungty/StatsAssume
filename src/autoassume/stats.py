@@ -1,7 +1,7 @@
 # ===========================
 # Module: Statistical Tests
 # Author: Kenneth Leung
-# Last Modified: 06 Jan 2022
+# Last Modified: 12 Jan 2022
 # ===========================
 import pandas as pd
 import statsmodels.stats.diagnostic as smd

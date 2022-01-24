@@ -40,8 +40,16 @@ def display_base64_plot(fig):
 
 
 def display_tab_header(assumption_name: str,
-                       assumption_intro: str):
+                       assumption_intro: str = Optional):
+    """Displays title header of dashboard tab
 
+    Args:
+        assumption_name (str): Name of assumption check
+        assumption_intro (str): Brief description of assumption check
+
+    Returns:
+        html.Div: Title header of dashboard tab
+    """
     return html.Div([html.H5([assumption_name],
                              style={
                              'padding': '0px 0px 10px 0px',
@@ -50,13 +58,20 @@ def display_tab_header(assumption_name: str,
                              'color': 'black',
                              'font-size': '24px',
                              'margin': '0',
-                             # 'border-top': '2px solid #FFD700',
                              'border-bottom': '2px solid #FFD700'
                              })]
                     )
 
 
 def display_card_header(card_header_title: str):
+    """Displays card header for each section in dashboard tab
+
+    Args:
+        card_header_title (str): Name of section (e.g. plot, statistical check)
+
+    Returns:
+        html.Div: Header of card section
+    """
 
     return dbc.CardHeader([html.H5(children=[card_header_title],
                                    style={'font-size': '20px',
@@ -70,27 +85,65 @@ def display_card_header(card_header_title: str):
 
 
 def display_card_subheader(card_subheader_title: str):
+    """Displays subsection header of card
+
+    Args:
+        card_subheader_title (str): Name of subsection within card
+
+    Returns:
+        html.Div: Header of card subsection
+    """
     return html.H6(children=[card_subheader_title],
                    style={'text-align': 'center'
                           })
 
 
-def display_plot_img(img, width):
+def display_plot_img(img,
+                     width: int):
+    """Displays plot image
+
+    Args:
+        img (base64 object): Encoded image of plot
+        width (int): Width of image
+
+    Returns:
+        html.Img: Wrapper for plot image display
+    """
     return html.Img(src=img,
                     style={'max-width': width,
                            'padding-top': '8px'})
 
 
 def display_text_paragraph(text: str):
-    return html.Small(children=[text],
-                      style={'font-size': '15px'
-                             })
+    """Displays paragraph of text (e.g. explanation, plot interpretation)
+
+    Args:
+        text (str): Informational text
+
+    Returns:
+        html.Small: Wrapper for text paragraph
+    """
+    return html.P(children=[text],
+                  style={'font-size': '14px',
+                         'white-space': 'pre-wrap'
+                         })
 
 
 def display_regression_summary(results_name: str,
                                html_table_1: str,
                                html_table_2: str = Optional,
                                html_table_3: str = Optional):
+    """Displays the summary results of regression modelling
+
+    Args:
+        results_name (str): Name of regression task
+        html_table_1 (str): Summary table 1 from model results output
+        html_table_2 (str, optional): Summary table 2 from model results output. Defaults to Optional.
+        html_table_3 (str, optional): Summary table 3 from model results output. Defaults to Optional.
+
+    Returns:
+        dbc.Card: Regression summary within a Dash Bootstrap Card for display
+    """
 
     if results_name == 'Linear Regression Results':
         dbc_card_table_1 = _convert_summary_to_dashtable(html_table_1, table_type='ols_table_1')
@@ -113,6 +166,16 @@ def display_regression_summary(results_name: str,
 def display_stat_results(test_name: str,
                          interpretation: str,
                          test_table: dt.DataTable):
+    """Display results and interpretation of statistical test
+
+    Args:
+        test_name (str): Name of statistical test
+        interpretation (str): Description on how to interpret test results
+        test_table (dt.DataTable): Table displaying the statistics values of test
+
+    Returns:
+        html.Div: Template layout showing statistical test results and its corresponding interpretation
+    """
 
     layout = html.Div([
         dbc.Card([
@@ -129,7 +192,6 @@ def display_stat_results(test_name: str,
                                  )
                     ], width=6,
                         style={'border-right': center_separator}),
-
                     dbc.Col([
                             display_card_subheader('Interpretation'),
                             display_text_paragraph(interpretation)
@@ -144,11 +206,21 @@ def display_stat_results(test_name: str,
     return layout
 
 
-# Define template layout for plot display
 def display_visual_plot(plot_name: str,
                         img_plot: base64,
                         img_examples: base64,
                         explainer: str):
+    """Displays plot for visual interpretation
+
+    Args:
+        plot_name (str): Name of statistical plot
+        img_plot (base64): Plot image object (base64-encoded)
+        img_examples (base64): Example images for comparison with plot
+        explainer (str): Explanation of the visual plot
+
+    Returns:
+        html.Div: Template layout showing statistical plot for visual analysis
+    """
 
     if img_examples == 'None':
         left_width, right_width = 9, 3
@@ -193,6 +265,16 @@ def display_visual_plot(plot_name: str,
 # Define template layout for details of assumption check
 def display_assumption_details(description: str,
                                solution: str):
+    """Displays the details (i.e. description and possible solution) of the assumption check
+
+    Args:
+        description (str): Description of the assumption check
+        solution (str): Possible solutions if assumption is violated
+
+    Returns:
+        html.Div: Template layout showing details of assumption check
+    """
+
     return html.Div([
         dbc.Card([
             display_card_header('Details'),
@@ -219,6 +301,11 @@ def display_assumption_details(description: str,
 
 
 def display_logs():
+    """Display the logs of the regression modelling
+
+    Returns:
+        html.Div: Logs of regression modelling process
+    """
 
     log_list = _get_log_details()
 
@@ -234,11 +321,21 @@ def display_logs():
 
 def _convert_summary_to_dashtable(html_table: str,
                                   table_type: str):
+    """Convert HTML tables from regression modelling summary into Dash tables
+
+    Args:
+        html_table (str): HTML table of regression summary results
+        table_type (str): Type of summary table
+
+    Returns:
+        dbc.Row: Summary output in Dash table format
+    """
+
     col_names = ['Parameter', 'Value']
 
-    def create_adjacent_tables(df_left: pd.DataFrame,
-                               df_right: pd.DataFrame,
-                               table_type: str):
+    def _create_adjacent_tables(df_left: pd.DataFrame,
+                                df_right: pd.DataFrame,
+                                table_type: str):
 
         style_header = {'display': 'none',
                         'padding': '0',
@@ -277,7 +374,7 @@ def _convert_summary_to_dashtable(html_table: str,
         df_left.columns = col_names
         df_right.columns = col_names
         df_right = df_right[df_right['Parameter'].notna()]
-        dbc_output = create_adjacent_tables(df_left, df_right, table_type)
+        dbc_output = _create_adjacent_tables(df_left, df_right, table_type)
 
     # OLS Table 2 for feature coefficients, p-value and CI for each variable
     elif table_type == 'ols_table_2':
@@ -305,7 +402,7 @@ def _convert_summary_to_dashtable(html_table: str,
         df_right = raw_df.iloc[:, -2:]
         df_left.columns = col_names
         df_right.columns = col_names
-        dbc_output = create_adjacent_tables(df_left, df_right, table_type)
+        dbc_output = _create_adjacent_tables(df_left, df_right, table_type)
     else:
         print('Table Type Not Recognized')
 
@@ -332,6 +429,14 @@ def _convert_stat_table_to_dashtable(stat_table: pd.DataFrame):
 
 
 def _get_log_details(log_path: str = 'logs/autoassume_check.log'):
+    """Read and print report logs
+
+    Args:
+        log_path (str, optional): Path to log file. Defaults to 'logs/autoassume_check.log'.
+
+    Returns:
+        list: Log details
+    """
     log_list = []
 
     with open(log_path) as file:
