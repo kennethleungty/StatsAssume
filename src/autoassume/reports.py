@@ -34,7 +34,7 @@ class Checker:
     output: Optional[str] = 'output'
     categorical_features: Optional[List[str]] = None
     categorical_encoder: Optional[str] = None
-    mode: str = 'inline'
+    mode: str = 'inline'  # external, jupyterlab
 
     """Core object of AutoAssume. It initializes regression modelling, runs relevant assumption checks,
     and returns an output report in the form of a Dash dashboard
