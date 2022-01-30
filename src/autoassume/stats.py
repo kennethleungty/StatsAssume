@@ -214,7 +214,8 @@ def stat_ljungbox(residuals: pd.Series,
 # ---------------------
 def stat_vif(X_constant: pd.DataFrame,
              threshold: int = 10):
-    """Calculate Variance Inflation Factor (VIF) values for each variable (for multi-collinearity check)
+    """Calculate Variance Inflation Factor (VIF) values for each variable (for multi-collinearity check). This is done on X_constant,
+    where the constant (intercept) is already included in the VIF calculations.
 
     Args:
         X_constant (pd.DataFrame): Dataframe with predictor variables, and with constant (intercept) included
@@ -226,7 +227,7 @@ def stat_vif(X_constant: pd.DataFrame,
     """
 
     vif = [variance_inflation_factor(X_constant.values, i) for i in range(X_constant.shape[1])]
-    X_cols = [col for col in list(X_constant.columns) if col != 'const']
+    X_cols = [col for col in list(X_constant.columns) if col != 'const']  # Hide const value from table, but VIF calc ALREADY correctly done on X_constant
     test_df = pd.DataFrame({'VIF': vif[1:]}, index=X_cols)
     test_df.sort_values(by='VIF', inplace=True, ascending=False)
     test_df['Below threshold'] = test_df['VIF'].apply(lambda x: u'\u2713' if x < threshold else 'X')

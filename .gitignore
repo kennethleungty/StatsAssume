@@ -3,8 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Ignore env
-env_*/
+# Ignore vscode settings
+.vscode/
+settings.json
 
 # Ignore powerpoint slides
 *.pptx
@@ -118,6 +119,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
+env_*/
 .env
 .venv
 env/
