@@ -1,4 +1,4 @@
-# AutoAssume
+# PyAssume
 Automated Assumption Checks for Regression Models
 
 ![Test Button 1](https://img.shields.io/badge/Coverage-100%25-green)
