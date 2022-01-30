@@ -36,7 +36,7 @@ class Checker:
     categorical_encoder: Optional[str] = None
     mode: str = 'inline'  # external, jupyterlab
 
-    """Core object of AutoAssume. It initializes regression modelling, runs relevant assumption checks,
+    """Core object of PyAssume. It initializes regression modelling, runs relevant assumption checks,
     and returns an output report in the form of a Dash dashboard
     """
     def __post_init__(self):

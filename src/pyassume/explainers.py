@@ -27,7 +27,7 @@ explain_solution_linear_regression = """
 The best way to assess whether the dataset meets the assumptions of linear regression is to \
 perform a series of assumption checks on the data.
 
-AutoAssume simplifies the process of assumption checks by automatically running the statistical \
+PyAssume simplifies the process of assumption checks by automatically running the statistical \
 tests and generating visual plots for easy interpretation.
 
 The results and information of each assumption check can be found in the Tabs above. Within each \
