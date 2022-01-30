@@ -10,6 +10,8 @@ settings.json
 # Ignore powerpoint slides
 *.pptx
 *.ppt
+/*.pptx
+/*.ppt
 
 # Ignore specific notebooks/folders
 generate_example_images/
