@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 
 # Ignore vscode settings
-.vscode/
+.vscode
 settings.json
 
 # Ignore powerpoint slides
@@ -120,6 +120,7 @@ celerybeat.pid
 
 # Environments
 env_*/
+env
 .env
 .venv
 env/
