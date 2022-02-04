@@ -16,13 +16,14 @@ be used to hash that all out.
 
 Style Guides
 -------------------
-1. Write in UTF-8 in Python 3
-2. User modular architecture to group similar functions, classes, etc. 
-3. Always use 4 spaces for indentation (don't use tabs)
-4. Try to limit line length to 80 characters
-5. Class names should always be capitalized
-6. Function names should always be lowercase
-7. Look at the existing style and adhere accordingly
+1. Make use of flake8 linting
+2. Write in UTF-8 in Python 3
+3. User modular architecture to group similar functions, classes, etc. 
+4. Always use 4 spaces for indentation (don't use tabs)
+5. Try to limit line length to 80 characters
+6. Class names should always be capitalized
+7. Function names should always be lowercase
+8. Look at the existing style and adhere accordingly
 
 Fork the Repository
 -------------------
