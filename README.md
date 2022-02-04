@@ -2,9 +2,10 @@
 <h3 align="center">Automated Assumption Checks for Regression Models</h3>
 
 <p align="center">
-  <a href="https://img.shields.io/badge/Coverage-100%25-green"><img src="https://img.shields.io/badge/Coverage-100%25-green?style=for-the-badge"></a>
   <a href="https://img.shields.io/badge/Build-Passing-green"><img src="https://img.shields.io/badge/Build-Passing-green?style=for-the-badge"></a>
-  <a href="https://img.shields.io/badge/Python-v3.6+-blue.svg"><img src="https://img.shields.io/badge/Python-v3.6+-blue.svg?style=for-the-badge"></a>
+  <!-- <a href="#"><img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/kennethleungty/pyassume/main_workflow?style=for-the-badge"></a>  -->
+  <a href="#"><img alt="Codecov" src="https://img.shields.io/codecov/c/gh/kennethleungty/pyassume?style=for-the-badge&token=4RJ4QXIHMH"></a> 
+  <a href="#"><img src="https://img.shields.io/badge/Python-v3.7+-blue.svg?style=for-the-badge"></a>
   <a href="https://img.shields.io/badge/License-MIT-blue.svg"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge"></a>
 </p>
 
