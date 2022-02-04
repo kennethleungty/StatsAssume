@@ -52,12 +52,6 @@ Instructions here
 ### Datasets
 - Default: fish.csv: Fish Market Dataset (https://www.kaggle.com/aungpyaeap/fish-market)
 
-## Changelog
-See [CHANGELOG.md](CHANGELOG.md)
-
-## License
-See [LICENSE][LICENSE]
-
 ## Contributing
 Have a look through existing [Issues](https://github.com/kennethleungty/pyassume/issues) and [Pull Requests](https://github.com/kennethleungty/pyassume/pulls) that you would like to help with. If you would like to request a feature or report a bug, please [create a GitHub Issue](https://github.com/kennethleungty/pyassume/issues) using one of the templates provided.
 
