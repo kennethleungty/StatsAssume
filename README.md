@@ -2,11 +2,10 @@
 <h3 align="center">Automated Assumption Checks for Regression Models</h3>
 
 <p align="center">
-  <a href="https://img.shields.io/badge/Coverage-100%25-green"><img src="https://img.shields.io/badge/Coverage-100%25-green"></a>
-  <a href="https://img.shields.io/badge/Build-Passing-green"><img src="https://img.shields.io/badge/Build-Passing-green"></a>
-  <a href="https://img.shields.io/badge/Python-v3.6+-blue.svg"><img src="https://img.shields.io/badge/Python-v3.6+-blue.svg"></a>
-  <a href="https://img.shields.io/badge/License-MIT-blue.svg"><img src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
-  <a href="https://img.shields.io/badge/Contributions-Welcome-orange.svg"><img src="https://img.shields.io/badge/Contributions-Welcome-orange.svg"></a>
+  <a href="https://img.shields.io/badge/Coverage-100%25-green"><img src="https://img.shields.io/badge/Coverage-100%25-green?style=for-the-badge"></a>
+  <a href="https://img.shields.io/badge/Build-Passing-green"><img src="https://img.shields.io/badge/Build-Passing-green?style=for-the-badge"></a>
+  <a href="https://img.shields.io/badge/Python-v3.6+-blue.svg"><img src="https://img.shields.io/badge/Python-v3.6+-blue.svg?style=for-the-badge"></a>
+  <a href="https://img.shields.io/badge/License-MIT-blue.svg"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge"></a>
 </p>
 
 <p align="center">
