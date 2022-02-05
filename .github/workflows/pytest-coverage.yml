@@ -1,7 +1,9 @@
-name: main_workflow
+name: PyTest and Code Coverage
+
 on: [push]
+
 jobs:
-  build:
+  test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
