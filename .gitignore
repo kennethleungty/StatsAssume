@@ -17,7 +17,6 @@ settings.json
 generate_example_images/
 archive/
 sandbox/
-logs/
 
 # Remove travis-CI
 .travis.yml
