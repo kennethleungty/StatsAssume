@@ -2,4 +2,4 @@
 # PyAssume
 # Author: Kenneth Leung
 # ==========================
-from .reports import Checker
+from .reports import Check

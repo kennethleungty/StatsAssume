@@ -26,17 +26,17 @@ warnings.filterwarnings("ignore")
 
 
 @dataclass
-class Checker:
+class Check:
     df: pd.DataFrame
     target: str
     task: Optional[str] = None
     predictors: Optional[List[str]] = None
-    output: Optional[str] = 'output'
+    keep: Optional[bool] = True
     categorical_features: Optional[List[str]] = None
     categorical_encoder: Optional[str] = None
-    mode: str = 'inline'  # external, jupyterlab
+    mode: str = 'inline'  # Other options: external, jupyterlab
 
-    """Core object of PyAssume. It initializes regression modelling, runs relevant assumption checks,
+    """Core object of PyAssume. Initializes regression modelling, runs relevant assumption checks,
     and returns an output report in the form of a Dash dashboard
     """
     def __post_init__(self):
@@ -45,6 +45,7 @@ class Checker:
         #     raise Exception("Output directory already exists. Please specify another folder name.")
         # os.makedirs(self.output, exist_ok=True)
         # logger.info(f"Output directory: {self.output}")
+        # To include output: Optional[str] = 'output' inside parameters if using this function
 
     def _determine_task_type(self):
         """Sets type of regression task to run.
@@ -69,7 +70,7 @@ class Checker:
             else:
                 raise ValueError('Unable to infer type of regression task')
 
-            logger.info(f"[+]>> Executing task type (specified by user): {task_type.name}")
+            logger.info(f"[+] Executing task type (specified by user): {task_type.name}")
 
         else:
             # Infer target type
@@ -89,9 +90,34 @@ class Checker:
 
         return task_type
 
-    def _process_categorical_features(self):
-        """ Transform categorical features (via one-hot or ordinal encoding)
+    def _keep_predictors(self):
+        """ Keeps or drops variables based on list of variables specified by user
+
+        Returns:
+            pd.DataFrame: Output dataframe after keeping/dropping predictor variables
+        """
+        if self.predictors is not None:
+            # Keep defined columns
+            if self.keep:
+                selected_cols = self.predictors + [self.target]
+                df_keep_predictors = self.df[selected_cols]
+                logger.info(f'[+] Keep predictor variables specified by user: {selected_cols}')
+            # Drop defined columns
+            else:
+                df_keep_predictors = self.df.drop(self.predictors, axis=1)
+                logger.info(f'[+] Drop variables specified by user: {self.predictors}')
+        else:
+            df_keep_predictors = self.df
+
+        return df_keep_predictors
+
+    def _process_categorical_features(self, df):
+        """Transform categorical features (via one-hot or ordinal encoding)
         so that input data can be parsed into statsmodel for modelling
+
+        Args:
+            df (pd.DataFrame): DataFrame with defined predictor and target variables
+            categorical_features (list): List of features that are of categorical type (Manually defined)
 
         Raises:
             Exception: If categorical variables remain non-encoded
@@ -101,7 +127,7 @@ class Checker:
         """
         # Automatically detect categorical features
         categorical_features_auto = []
-        features = [col for col in list(self.df.columns) if col != self.target]
+        features = [col for col in list(df.columns) if col != self.target]
         for col in features:
             if self.df[col].dtype == "object":
                 categorical_features_auto.append(col)
@@ -161,17 +187,14 @@ class Checker:
         """
 
         task_type = self._determine_task_type()
-        df = self._process_categorical_features()
+        df = self._keep_predictors()
+        df = self._process_categorical_features(df)
 
         app = JupyterDash(__name__,
                           external_stylesheets=[dbc.themes.BOOTSTRAP]
                           )
 
-        if self.predictors is None:
-            predictors = [col for col in list(df.columns) if col != self.target]
-        else:
-            predictors = self.predictors
-
+        predictors = [col for col in list(df.columns) if col != self.target]
         X, y = df[predictors], df[self.target]
         X_constant = sm.add_constant(X)  # Add constant value for X
 
