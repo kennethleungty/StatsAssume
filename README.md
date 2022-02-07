@@ -4,7 +4,7 @@
 <p align="center">
   <a href="https://img.shields.io/badge/Build-Passing-green"><img src="https://img.shields.io/badge/Build-Passing-green?style=for-the-badge"></a>
   <!-- <a href="#"><img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/kennethleungty/pyassume/main_workflow?style=for-the-badge"></a>  -->
-  <a href="#"><img alt="Codecov" src="https://img.shields.io/codecov/c/gh/kennethleungty/pyassume?style=for-the-badge&token=4RJ4QXIHMH"></a> 
+  <a href="#"><img alt="Codecov" src="https://img.shields.io/codecov/c/github/kennethleungty/pyassume?label=CODECOV&style=for-the-badge&token=4RJ4QXIHMH"></a> 
   <a href="#"><img src="https://img.shields.io/badge/Python-v3.7+-blue.svg?style=for-the-badge"></a>
   <a href="https://img.shields.io/badge/License-MIT-blue.svg"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge"></a>
 </p>
@@ -55,11 +55,6 @@ Instructions here
 - [Kenneth Leung](https://github.com/kennethleungty)
 - Contributor 2
 - Contributor 3
-<br/>
-
-## Additional Info
-### Datasets
-- Default: fish.csv: Fish Market Dataset (https://www.kaggle.com/aungpyaeap/fish-market)
 <br/>
 
 ## Contributing
