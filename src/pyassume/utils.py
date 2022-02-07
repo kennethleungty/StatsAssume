@@ -428,11 +428,11 @@ def _convert_stat_table_to_dashtable(stat_table: pd.DataFrame):
     return dbc_output
 
 
-def _get_log_details(log_path: str = 'logs/autoassume_check.log'):
+def _get_log_details(log_path: str = 'logs/pyassume_check.log'):
     """Read and print report logs
 
     Args:
-        log_path (str, optional): Path to log file. Defaults to 'logs/autoassume_check.log'.
+        log_path (str, optional): Path to log file. Defaults to 'logs/pyassume_check.log'.
 
     Returns:
         list: Log details
