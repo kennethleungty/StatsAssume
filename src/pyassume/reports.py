@@ -1,8 +1,9 @@
 # ===============================
-# Module: Assumption Main Checks
+# Module: Dashboard Report Generation
 # Author: Kenneth Leung
-# Last Modified: 24 Jan 2022
+# Last Modified: 13 Feb 2022
 # ===============================
+import sys
 from dataclasses import dataclass
 from typing import List, Optional
 import numpy as np
@@ -16,12 +17,15 @@ import dash_bootstrap_components as dbc
 import warnings
 from .layouts.linear_regression.layout import layout_linear_regression
 from .layouts.linear_regression.tabs import *
+from .layouts.placeholder.layout import layout_placeholder
+from .layouts.placeholder.tabs import *
 from .enums import TaskType
 from .plots import *
 from .stats import *
 from .tasks import *
 from .logger import logger
 
+sys.path.insert(0, "/layouts")
 warnings.filterwarnings("ignore")
 
 
@@ -68,7 +72,8 @@ class Check:
             elif self.task == 'multinomial logistic regression':
                 task_type = TaskType.multinomial_logistic_regression
             else:
-                raise ValueError('Unable to infer type of regression task')
+                raise ValueError('Unable to infer type of regression task. If specifying manually, please choose from the following: \
+                    "linear regression", "binary logistic regression" or "multinomial logistic regression"')
 
             logger.info(f"[+] Executing task type (specified by user): {task_type.name}")
 
@@ -218,11 +223,31 @@ class Check:
                     return generate_tab_multicollinearity(X, X_constant)
                 elif tab == 'tab_normality':
                     return generate_tab_normality(residuals)
-        # elif task_type == TaskType.binary_logistic_regression:
-        #     task_binary_logistic_regression(y, X_constant)
 
-        # elif task_type == TaskType.multinomial_logistic_regression:
-        #     task_multinomial_logistic_regression(y, X_constant)
+        elif task_type == TaskType.binary_logistic_regression:
+            task_name = 'Binary Logistic Regression'
+            # task_binary_logistic_regression(y, X_constant)
+            app.layout = layout_placeholder
+
+            @app.callback(Output('tab-content', 'children'),
+                          [Input('tabs', 'value')])
+            def render_content(tab):
+                if tab == 'tab_summary':
+                    # Dummy placeholder layout
+                    return generate_placeholder_layout(task_name)
+
+        elif task_type == TaskType.multinomial_logistic_regression:
+            task_name = 'Multinomial Logistic Regression'
+            # task_multinomial_logistic_regression(y, X_constant)
+            app.layout = layout_placeholder
+
+            @app.callback(Output('tab-content', 'children'),
+                          [Input('tabs', 'value')])
+            def render_content(tab):
+                if tab == 'tab_summary':
+                    # Dummy placeholder layout
+                    return generate_placeholder_layout(task_name)
+
         else:
             raise ValueError('Task type not recognized')
 

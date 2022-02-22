@@ -9,7 +9,7 @@ with open("requirements.txt") as f:
     required_libs = f.read().splitlines()
 
 setuptools.setup(name="pyassume",
-                 version='0.0.5',
+                 version='0.0.8',
                  author="Kenneth Leung",
                  author_email="pyassume@outlook.com",
                  description="PyAssume - Automated Assumption Checks for Regression Models",
@@ -23,7 +23,7 @@ setuptools.setup(name="pyassume",
                  ],
                  package_dir={"": "src"},
                  packages=setuptools.find_packages("src"),
-                 python_requires=">=3.6",
+                 python_requires=">=3.7",
                  include_package_data=True,
                  install_requires=required_libs
                  )

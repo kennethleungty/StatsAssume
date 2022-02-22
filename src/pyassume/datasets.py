@@ -10,6 +10,7 @@ def load_data(dataset_name: str,
               processed: bool = False,
               save_copy: bool = False,
               raw_url: str = 'https://raw.githubusercontent.com/kennethleungty/Logistic-Regression-Assumptions/main/datasets/',
+              # raw_url: str = 'https://raw.githubusercontent.com/kennethleungty/pyassume/main/datasets/',
               file_ext: str = '.csv'):
     """Loads toy dataset for assumption checks
 

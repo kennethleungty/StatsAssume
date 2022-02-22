@@ -1,11 +1,14 @@
 import os
 import sys
 
-# sys.path.insert(0, os.path.abspath(".."))
+sys.path.insert(0, os.path.abspath(".."))
 
-# import pyassume.stats
+from pyassume.datasets import load_data
 
-def test_sample_456():
+
+
+
+def test_stat_breuschpagan():
     var1 = 1
     var2 = 2
     var3 = 3
