@@ -1,21 +1,20 @@
 # Setup.py file
 import setuptools
 
-
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 with open("requirements.txt") as f:
     required_libs = f.read().splitlines()
 
-setuptools.setup(name="pyassume",
-                 version='0.0.8',
+setuptools.setup(name="statsassume",
+                 version='0.0.2',
                  author="Kenneth Leung",
-                 author_email="pyassume@outlook.com",
-                 description="PyAssume - Automated Assumption Checks for Regression Models",
+                 author_email="statsassume@gmail.com",
+                 description="Automating Assumption Checks for Regression Models",
                  long_description=long_description,
                  long_description_content_type="text/markdown",
-                 url="https://github.com/kennethleungty/pyassume",
+                 url="https://github.com/kennethleungty/statsassume",
                  classifiers=[
                              "Programming Language :: Python :: 3",
                              "License :: OSI Approved :: MIT License",
