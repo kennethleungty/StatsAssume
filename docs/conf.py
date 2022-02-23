@@ -16,7 +16,7 @@ sys.path.insert(0, os.path.abspath("../src"))
 
 # -- Project information -----------------------------------------------------
 
-project = 'AutoAssume'
+project = 'StatsAssume'
 copyright = '2022, Kenneth Leung'
 author = 'Kenneth Leung'
 

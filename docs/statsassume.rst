@@ -1,77 +1,77 @@
-autoassume package
+statsassume package
 ==================
 
 Submodules
 ----------
 
-autoassume.datasets module
+statsassume.datasets module
 --------------------------
 
-.. automodule:: autoassume.datasets
+.. automodule:: statsassume.datasets
    :members:
    :undoc-members:
    :show-inheritance:
 
-autoassume.enums module
+statsassume.enums module
 -----------------------
 
-.. automodule:: autoassume.enums
+.. automodule:: statsassume.enums
    :members:
    :undoc-members:
    :show-inheritance:
 
-autoassume.explainers module
+statsassume.explainers module
 ----------------------------
 
-.. automodule:: autoassume.explainers
+.. automodule:: statsassume.explainers
    :members:
    :undoc-members:
    :show-inheritance:
 
-autoassume.logger module
+statsassume.logger module
 ------------------------
 
-.. automodule:: autoassume.logger
+.. automodule:: statsassume.logger
    :members:
    :undoc-members:
    :show-inheritance:
 
-autoassume.plots module
+statsassume.plots module
 -----------------------
 
-.. automodule:: autoassume.plots
+.. automodule:: statsassume.plots
    :members:
    :undoc-members:
    :show-inheritance:
 
-autoassume.reports module
+statsassume.reports module
 -------------------------
 
-.. automodule:: autoassume.reports
+.. automodule:: statsassume.reports
    :members:
    :undoc-members:
    :show-inheritance:
 
-autoassume.stats module
+statsassume.stats module
 -----------------------
 
-.. automodule:: autoassume.stats
+.. automodule:: statsassume.stats
    :members:
    :undoc-members:
    :show-inheritance:
 
-autoassume.tasks module
+statsassume.tasks module
 -----------------------
 
-.. automodule:: autoassume.tasks
+.. automodule:: statsassume.tasks
    :members:
    :undoc-members:
    :show-inheritance:
 
-autoassume.utils module
+statsassume.utils module
 -----------------------
 
-.. automodule:: autoassume.utils
+.. automodule:: statsassume.utils
    :members:
    :undoc-members:
    :show-inheritance:
@@ -79,7 +79,7 @@ autoassume.utils module
 Module contents
 ---------------
 
-.. automodule:: autoassume
+.. automodule:: statsassume
    :members:
    :undoc-members:
    :show-inheritance:
