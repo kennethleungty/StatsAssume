@@ -1,4 +1,4 @@
-<h2 align="center"><img src="https://raw.githubusercontent.com/kennethleungty/statsassume/main/media/logo_v1.png" alt="StatsAssume" width="300"></h2>
+<h2 align="center"><img src="https://raw.githubusercontent.com/kennethleungty/statsassume/main/media/logo_v1.png" alt="StatsAssume" width="350"></h2>
 <h3 align="center">Automating Assumption Checks for Regression Models</h3>
 
 
@@ -36,14 +36,14 @@ StatsAssume automates the assumption checks of regression models (e.g., linear a
 - Displays insightful information on assumption concepts and (possible) solutions to violations.
 
 ## Download
-```bash
+```python
 pip install statsassume
 ```
 
 ## Usage
 
 ### Quickstart
-```bash
+```python
 from statsassume import Check
 from statsassume.datasets import load_data
 
@@ -60,7 +60,7 @@ Note: Dataset should ideally be pre-processed before running assumption checks.
 - While pre-processing should ideally be performed prior, StatsAssume comes with automatic encoding of categorical variables so that we can quickly commence model runs and assumption checks
 - Here's how to put the `Check` class (core object of StatsAssume) to its best use:
 
-```bash
+```python
 df = load_data('Fish')  # Get toy dataset (raw)
 
 assume = Check(df=df, 
