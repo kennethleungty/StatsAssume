@@ -23,8 +23,6 @@
 ## Features
 StatsAssume automates the assumption checks of regression models (e.g., linear and logistic regression) on your data and displays the results in an elegant dashboard. 
 
-This lets you easily verify whether regression modeling is justified and if the model output can be interpreted correctly.
-
 <img src="https://raw.githubusercontent.com/kennethleungty/statsassume/main/media/demo.gif"/>
 
 - Automatically detects regression task (and relevant assumption checks) based on `target` variable.
