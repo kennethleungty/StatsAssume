@@ -25,7 +25,7 @@ StatsAssume automates the assumption checks of regression models (e.g., linear a
 
 This lets you easily verify whether regression modeling is justified and if the model output can be interpreted correctly.
 
-> GIF coming soon!
+<img src="https://raw.githubusercontent.com/kennethleungty/statsassume/main/media/demo.gif"/>
 
 - Automatically detects regression task (and relevant assumption checks) based on `target` variable.
 
