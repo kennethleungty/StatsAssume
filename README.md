@@ -1,4 +1,4 @@
-<h2 align="center"><img src="https://raw.githubusercontent.com/kennethleungty/statsassume/main/media/logo_v1.png" alt="StatsAssume" width="200"></h2>
+<h2 align="center"><img src="https://raw.githubusercontent.com/kennethleungty/statsassume/main/media/logo_v1.png" alt="StatsAssume" width="300"></h2>
 <h3 align="center">Automating Assumption Checks for Regression Models</h3>
 
 <p align="center">
