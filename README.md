@@ -3,8 +3,8 @@
 
 
 <p align="center">
-  <a href="https://img.shields.io/badge/Build-Passing-green"><img src="https://img.shields.io/badge/Build-Passing-green?style=for-the-badge"></a>
-  <!-- <a href="#"><img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/kennethleungty/statsassume/main_workflow?style=for-the-badge"></a>  -->
+  <!-- <a href="https://img.shields.io/badge/Build-Passing-green"><img src="https://img.shields.io/badge/Build-Passing-green?style=for-the-badge"></a> -->
+  <a href="#"><img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/kennethleungty/statsassume/PyTest%20and%20Code%20Coverage?style=for-the-badge"></a> 
   <!-- <a href="#"><img alt="Codecov" src="https://img.shields.io/codecov/c/github/kennethleungty/statsassume?label=CODECOV&style=for-the-badge&token=4RJ4QXIHMH"></a>  -->
   <a href="#"><img src="https://img.shields.io/badge/Python-v3.7+-blue.svg?style=for-the-badge"></a>
   <a href="#"><img alt="PyPI" src="https://img.shields.io/pypi/v/statsassume?style=for-the-badge"></a>
