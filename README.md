@@ -53,7 +53,9 @@ assume = Check(df, target='Weight')  # Initiate Check class and define target va
 assume.report()  # Run assumption checks and generate dashboard report
 ```
 
-Note: Dataset should ideally be pre-processed before running assumption checks.  
+NOTE: Data should ideally be pre-processed before running StatsAssume assumption checks.  
+
+Toy datasets available in StatsAssume can be found [**HERE**](https://github.com/kennethleungty/StatsAssume/blob/main/datasets/SOURCE.MD)
 
 
 ### Comprehensive Usage
@@ -73,28 +75,28 @@ assume = Check(df=df,
                mode='inline')
 ```
 #### Attributes
-- `df`: pd.DataFrame
+- `df`: *pd.DataFrame*
 <br> Dataset (in pandas DataFrame format)
 
-- `target`: str
+- `target`: *str*
 <br> Column name of target (dependent) variable
 
-- `task`: str 
+- `task`: *str*
 <br> Type of regression task to be performed. Options include: ***'linear regression'***(More tasks to come soon). If None specified, task will be automatically determined based on `target` variable. 
 
-- `predictors`: list
+- `predictors`: *list*
 <br> List of column names of predictor (independent) features. If None specified, all columns other than `target` will be regarded as predictors
 
-- `keep`: bool
+- `keep`: *bool*
 <br> If ***True***, variables in `predictors` list will be kept as predictor variables, and other non-target variables will be dropped. If ***False***, variables in `predictors` list will be dropped, and other non-target variables will be retained. Default is ***True***.
 
-- `categorical_features`: list
+- `categorical_features`: *list*
 <br> List of column names deemed categorical, so that appropriate encoding can be performed. If None specified, the categorical variables will be automatically detected and encoded into numerical format for regression modelling. Default is ***None***.
 
-- `categorical_encoding`: str
+- `categorical_encoding`: *str*
 <br> Type of encoding technique to be performed on categorical variables. Options include: ***ohe*** (i.e. one-hot encoding) and ***ord*** (i.e. ordinal encoding). Default is ***ohe***.
 
-- `mode`: str
+- `mode`: *str*
 <br> Type of display for dashboard report. Options include ***inline*** (displayed as output directly in Jupyter notebook), ***external*** (displayed in a new full-screen browser tab), or ***jupyterlab*** (displayed in separate tab right inside JupyterLab). Default is ***inline***.
 
 #### Notes
@@ -117,7 +119,7 @@ assume = Check(df=df,
 3. Make changes and test
 4. Submit **Pull Request** with comprehensive description of changes
 
-If you would like to request a feature or report a bug, please [create a GitHub Issue](https://github.com/kennethleungty/statsassume/issues) using one of the templates provided.
+If you would like to request a feature or report a bug, please [create a GitHub Issue](https://github.com/kennethleungty/statsassume/issues).
 
 [See full contribution guide →](https://github.com/kennethleungty/statsassume/blob/main/CONTRIBUTING.md)
 
