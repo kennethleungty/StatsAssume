@@ -25,20 +25,23 @@ StatsAssume automates the assumption checks of regression models (e.g., linear a
 
 <img src="https://raw.githubusercontent.com/kennethleungty/statsassume/main/media/demo.gif"/>
 
-- Automatically detects regression task (and relevant assumption checks) based on `target` variable.
+- Automatically detects regression task (and relevant assumption checks) based on the target variable of dataset.
 
-- Automatically executes statistical tests and visual plots for all relevant assumption checks.
+- Automatically executes statistical tests and visual plots of assumption checks relevant to the regression task.
 
 - Generates clear visual output of results in a beautiful dashboard (built on [Jupyter-Dash](https://github.com/plotly/jupyter-dash)).
 
-- Automatically one-hot encodes categorical variables for successful regression modelling (unless manually specified otherwise).
+- Displays insightful information on assumption concepts and possible fixes for assumption violations.
 
-- Displays insightful information on assumption concepts and (possible) solutions to violations.
+- Able to automatically encode categorical variables to create dataset suitable for regression modelling (unless specified otherwise).
+<br>
+<br>
 
 ## Download
 ```python
 pip install statsassume
 ```
+<br>
 
 ## Usage
 
@@ -56,7 +59,8 @@ assume.report()  # Run assumption checks and generate dashboard report
 NOTE: Data should ideally be pre-processed before running StatsAssume assumption checks.  
 
 Toy datasets available in StatsAssume can be found [**HERE**](https://github.com/kennethleungty/StatsAssume/blob/main/datasets/SOURCE.MD)
-
+<br>
+<br>
 
 ### Comprehensive Usage
 - While pre-processing should ideally be performed prior, StatsAssume comes with automatic encoding of categorical variables so that we can quickly commence model runs and assumption checks
@@ -101,10 +105,14 @@ assume = Check(df=df,
 
 #### Notes
 - Only `df` and `target` attributes are compulsory
+<br>
+<br>
 
 ## Motivation
 - Tedious to perform assumption checks manually
 - Lack of rigour and consistency in references and notebooks online
+<br>
+<br>
 
 <!-- ## Credits
 - [Kenneth Leung](https://github.com/kennethleungty)
@@ -122,6 +130,8 @@ assume = Check(df=df,
 If you would like to request a feature or report a bug, please [create a GitHub Issue](https://github.com/kennethleungty/statsassume/issues).
 
 [See full contribution guide →](https://github.com/kennethleungty/statsassume/blob/main/CONTRIBUTING.md)
+<br>
+<br>
 
 ## Upcoming
 - Assumption checks for Logistic Regression (meanwhile, take a look at this [article on logistic regression assumptions](https://towardsdatascience.com/assumptions-of-logistic-regression-clearly-explained-44d85a22b290))
