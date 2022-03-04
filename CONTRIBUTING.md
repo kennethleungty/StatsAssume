@@ -37,6 +37,6 @@ Make the Pull Request
 
 Once you have made all your changes, tests, and updated the documentation,
 make a pull request to move everything back into the main branch of 
-`PyAssume`. Be sure to reference the original issue in the pull request.
+`StatsAssume`. Be sure to reference the original issue in the pull request.
 Expect some back-and-forth with regards to style and compliance of these
 rules.

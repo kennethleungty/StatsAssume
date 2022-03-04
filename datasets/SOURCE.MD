@@ -12,7 +12,7 @@ Here is a list of toy datasets available for usage in StatsAssume
 | **Income2** | Income data based on education and seniority  | Regression | [:link:](https://github.com/nguyen-toan/ISLR/blob/master/dataset/Income2.csv) |
 | **Insurance** | Personal medical insurance costs | Regression | [:link:](https://github.com/stedy/Machine-Learning-with-R-datasets/blob/master/insurance.csv) |
 
-To load the toy dataset in the Jupyter notebook, use the `load_data` function with the dataset name as the parameter e.g. 
+To load the toy dataset in the Jupyter notebook, use the `load_data` function with the dataset name as the parameter (WITHOUT the .csv suffix) e.g. 
 ```python 
 df = load_data('Auto')
 ```
