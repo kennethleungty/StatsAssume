@@ -11,10 +11,10 @@ from dash import html
 
 def generate_placeholder_layout(task_type: str):
     tab_summary = html.Div(children=[
-                           html.Small(f'Successfully detected regression task to be {task_type}. However, \
+                           html.Small(f'Successfully detected task to be {task_type}. However, \
                                         automated assumption checks for this task is still in the works. \
-                                        Follow the PyAssume repo (github.com/kennethleungty/pyassume) \
-                                        to stay updated with the latest developments!'),
+                                        Follow the StatsAssume GitHub repo (github.com/kennethleungty/statsassume) \
+                                        to keep track of the latest updates!'),
                            html.Br(),
                            ],
                            style={'text-align': 'center'})
