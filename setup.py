@@ -8,7 +8,7 @@ with open("requirements.txt") as f:
     required_libs = f.read().splitlines()
 
 setuptools.setup(name="statsassume",
-                 version='0.0.4',
+                 version='0.0.5',
                  author="Kenneth Leung",
                  author_email="statsassume@gmail.com",
                  description="Automating Assumption Checks for Regression Models",
