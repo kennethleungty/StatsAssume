@@ -1,6 +1,5 @@
 <h2 align="center"><img src="https://raw.githubusercontent.com/kennethleungty/statsassume/main/media/logo_v1.png" alt="StatsAssume" width="350"></h2>
-<h3 align="center">Automating Assumption Checks for Regression Models</h3>
-
+<h3 align="center">Automating Assumption Checks for Regression Models (WORK IN PROGRESS)</h3>
 
 <p align="center">
   <!-- <a href="https://img.shields.io/badge/Build-Passing-green"><img src="https://img.shields.io/badge/Build-Passing-green?style=for-the-badge"></a> -->
